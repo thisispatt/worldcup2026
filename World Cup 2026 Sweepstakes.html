@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Cup 2026 · Office Sweepstakes</title>
+
+<!-- Design system tokens + base (inlined) -->
+<style>
+/* ==========================================================================
+   FONTS — MarkForMC substitute
+   --------------------------------------------------------------------------
+   MarkForMC is Mastercard's proprietary geometric sans and cannot be shipped.
+   Sofia Sans (Google Fonts) is the closest open-source match and is listed in
+   Mastercard's own declared fallback stack. It is a VARIABLE font, so the
+   load-bearing 450 body weight is preserved exactly.
+
+   To swap in the real MarkForMC: drop the .woff2 files into assets/fonts/ and
+   replace the @import below with @font-face rules pointing at them.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+</style>
+<style>
+/* ==========================================================================
+   COLORS — Mastercard-inspired palette
+   Base tokens first, then semantic aliases. Warm cream canvas, ink CTAs,
+   signal orange reserved for consent/legal only.
+   ========================================================================== */
+
+:root {
+  /* --- Brand mark (logo only — NEVER use as UI colors) --- */
+  --brand-red:            #EB001B;  /* Mastercard mark left circle  */
+  --brand-yellow:         #F79E1B;  /* Mastercard mark right circle */
+
+  /* --- Ink / near-black (warm) --- */
+  --ink:                  #141413;  /* primary CTAs, headlines, footer surface */
+  --charcoal:             #262627;  /* softer black text alternate */
+
+  /* --- Signal oranges (attention / consent only) --- */
+  --signal-orange:        #CF4500;  /* burnt rust — consent & legal CTAs, eyebrow dot */
+  --signal-orange-light:  #F37338;  /* carroty — orbital arcs, active carousel dots */
+  --clay-brown:           #9A3A0A;  /* deep rust — secondary link-style buttons */
+
+  /* --- Surfaces (warm, never sterile) --- */
+  --canvas:               #F3F0EE;  /* page canvas — warm putty cream */
+  --cream-lifted:         #FCFBFA;  /* one step lighter — nested raised sections */
+  --white:                #FFFFFF;  /* nav pill, modals, satellite CTAs, secondary fills */
+  --bone:                 #F4F4F4;  /* cool-gray alt surface */
+  --ghost-cream:          #E8E2DA;  /* cream-on-cream watermark headline tone */
+
+  /* --- Text grays --- */
+  --slate:                #696969;  /* muted secondary text, eyebrow alt, disabled */
+  --granite:              #555555;  /* deeper gray inline body accent */
+  --graphite:             #565656;  /* link alternate gray */
+  --dust-taupe:           #D1CDC7;  /* whisper / placeholder text — low contrast */
+
+  /* --- Semantic accent --- */
+  --link-blue:            #3860BE;  /* inline links, informational callouts */
+
+  /* ---------------------------------------------------------------------- */
+  /* SEMANTIC ALIASES                                                       */
+  /* ---------------------------------------------------------------------- */
+
+  /* Surfaces */
+  --surface-page:         var(--canvas);
+  --surface-raised:       var(--cream-lifted);
+  --surface-card:         var(--white);
+  --surface-alt:          var(--bone);
+  --surface-inverse:      var(--ink);
+
+  /* Text */
+  --text-heading:         var(--ink);
+  --text-body:            var(--ink);          /* paired with weight 450 */
+  --text-muted:           var(--slate);
+  --text-whisper:         var(--dust-taupe);
+  --text-on-inverse:      var(--white);
+  --text-link:            var(--link-blue);
+  --text-ghost:           var(--ghost-cream);
+
+  /* Actions */
+  --action-primary-bg:    var(--ink);
+  --action-primary-fg:    var(--canvas);       /* cream, not pure white */
+  --action-secondary-bg:  var(--white);
+  --action-secondary-fg:  var(--ink);
+  --action-consent-bg:    var(--signal-orange);
+  --action-consent-fg:    var(--white);
+
+  /* Lines & accents */
+  --border-strong:        var(--ink);          /* 1.5px pill outlines */
+  --border-hairline:      rgba(20, 20, 19, 0.16);
+  --border-on-inverse:    rgba(255, 255, 255, 0.40);
+  --accent-orbit:         var(--signal-orange-light);
+  --accent-dot:           var(--signal-orange);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY — one-font system (MarkForMC → Sofia Sans substitute)
+   Contrast comes from scale, weight, and letter-spacing — never a 2nd family.
+   Weight 450 is load-bearing for body copy. Headlines carry -2% tracking.
+   ========================================================================== */
+
+:root {
+  /* Families */
+  --font-sans: 'Sofia Sans', 'SofiaSans', Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
+  /* Weights — note the half-step 450 */
+  --fw-body:    450;   /* @kind font */
+  --fw-medium:  500;   /* @kind font */
+  --fw-bold:    700;   /* @kind font */
+
+  /* Type scale (size / line-height / letter-spacing) ---------------------- */
+
+  /* H1 — hero */
+  --t-h1-size: 64px;
+  --t-h1-lh:   64px;       /* 1:1 tight vertical rhythm */
+  --t-h1-ls:   -1.28px;    /* -2% */
+
+  /* H2 — section */
+  --t-h2-size: 36px;
+  --t-h2-lh:   44px;
+  --t-h2-ls:   -0.72px;    /* -2% */
+
+  /* H3 — card title */
+  --t-h3-size: 24px;
+  --t-h3-lh:   28.8px;     /* 1.2 */
+  --t-h3-ls:   -0.48px;    /* -2% */
+
+  /* H4 — subhead (rare) */
+  --t-h4-size: 14px;
+  --t-h4-lh:   18.2px;     /* 1.3 */
+  --t-h4-ls:   normal;     /* @kind other */
+
+  /* Eyebrow (H5) — uppercase + accent dot */
+  --t-eyebrow-size: 14px;
+  --t-eyebrow-lh:   14px;
+  --t-eyebrow-ls:   0.56px;   /* +4% */
+
+  /* Body paragraph */
+  --t-body-size: 16px;
+  --t-body-lh:   22.4px;      /* 1.4 */
+  --t-body-ls:   normal;      /* @kind other */
+
+  /* Nav link / button label */
+  --t-action-size: 16px;
+  --t-action-lh:   16px;
+  --t-action-ls:   -0.48px;   /* -3% */
+
+  /* Footer link */
+  --t-footlink-size: 14px;
+  --t-footlink-lh:   20px;
+  --t-footlink-ls:   normal;  /* @kind other */
+
+  /* Footer column header */
+  --t-foothead-size: 13px;
+  --t-foothead-lh:   14px;
+  --t-foothead-ls:   0.56px;  /* +4% */
+
+  /* Ghost watermark headline */
+  --t-ghost-size: 112px;
+  --t-ghost-lh:   1;          /* @kind other */
+  --t-ghost-ls:   -2.24px;
+}
+
+/* ==========================================================================
+   SPACING — 8px base unit, powers-of-8 scale.
+   ========================================================================== */
+
+:root {
+  --space-1:   8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  /* Layout */
+  --container-max:   1280px;
+  --gutter:          48px;     /* desktop horizontal gutter */
+  --gutter-wide:     100px;
+  --section-pad-y:   128px;    /* desktop section vertical rhythm */
+  --section-pad-y-sm: 48px;    /* mobile */
+  --card-pad:        40px;     /* desktop card internal */
+  --card-pad-sm:     24px;     /* mobile card internal */
+  --nav-top:         24px;     /* nav pill float gap from viewport top */
+}
+
+/* ==========================================================================
+   RADIUS — the signature scale. Small (≤6), medium-large (20–40), or
+   full-pill (99+). The 8–12 middle ground is deliberately ABSENT.
+   ========================================================================== */
+
+:root {
+  --radius-xs:    4px;    /* tiny decorative chips, cookie micro-elements */
+  --radius-btn:   20px;   /* primary & secondary body CTAs — the signature */
+  --radius-consent: 24px; /* consent / orange pill buttons */
+  --radius-stadium: 40px; /* hero media frames, large containers, H2 pill labels */
+  --radius-circle: 50%;   /* circular portraits, icon buttons, satellite CTAs */
+  --radius-pill:  999px;  /* nav, carousel cards, country selector, chips */
+}
+
+/* ==========================================================================
+   ELEVATION — atmospheric cushioning, not directional light.
+   Large spreads, very low opacity. Borders preferred for functional lines.
+   ========================================================================== */
+
+:root {
+  --shadow-0: none;
+  --shadow-1: rgba(0, 0, 0, 0.04) 0px 4px 24px 0px;     /* floating nav pill */
+  --shadow-2: rgba(0, 0, 0, 0.08) 0px 24px 48px 0px;    /* hero frames, elevated cards */
+  --shadow-3: rgba(0, 0, 0, 0.25) 0px 70px 110px 0px;   /* rare dramatic feature tile */
+}
+
+/* ==========================================================================
+   BASE — light reset + foundational element defaults + a few utility classes
+   that encode the brand's signature treatments (eyebrow, ghost headline).
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings ---------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  color: var(--text-heading);
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-h1-size); line-height: var(--t-h1-lh); letter-spacing: var(--t-h1-ls); }
+h2 { font-size: var(--t-h2-size); line-height: var(--t-h2-lh); letter-spacing: var(--t-h2-ls); }
+h3 { font-size: var(--t-h3-size); line-height: var(--t-h3-lh); letter-spacing: var(--t-h3-ls); }
+h4 { font-size: var(--t-h4-size); line-height: var(--t-h4-lh); font-weight: var(--fw-bold); }
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: inherit; text-decoration: none; }
+
+/* Eyebrow label — accent dot + uppercase tracking. The dot is the identity. */
+.mc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--t-eyebrow-size);
+  line-height: var(--t-eyebrow-lh);
+  letter-spacing: var(--t-eyebrow-ls);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  color: var(--text-heading);
+}
+.mc-eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: var(--accent-dot);
+  flex: none;
+}
+
+/* Ghost watermark headline — cream-on-cream, sits behind portraits. */
+.mc-ghost {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  font-size: var(--t-ghost-size);
+  line-height: var(--t-ghost-lh);
+  letter-spacing: var(--t-ghost-ls);
+  color: var(--text-ghost);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Generic section container */
+.mc-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+
+</style>
+
+<style>
+  html, body { margin: 0; }
+  #root { min-height: 100vh; }
+  .wc-navtabs::-webkit-scrollbar { display: none; }
+  /* DS Eyebrow component renders its own dot — suppress base.css duplicate, keep on one line */
+  .mc-eyebrow { white-space: nowrap; }
+  .mc-eyebrow::before { display: none !important; }
+
+  /* Loading splash */
+  #wc-loading { position: fixed; inset: 0; display: grid; place-items: center; background: var(--canvas); z-index: 100; transition: opacity .4s ease; }
+  #wc-loading .badge { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); color: var(--canvas); display: grid; place-items: center; font-weight: 700; font-size: 24px; animation: wcpulse 1.4s ease-in-out infinite; }
+  @keyframes wcpulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.92); opacity: .7; } }
+
+  @media (max-width: 920px) {
+    .wc-hero-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 820px) {
+    .wc-prize-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 720px) {
+    .mc-container { padding-inline: 20px !important; }
+  }
+  @media (max-width: 600px) {
+    .wc-fixture-row { grid-template-columns: 64px 1fr auto 1fr !important; gap: 8px !important; padding-left: 16px !important; padding-right: 16px !important; }
+    .wc-fixture-row span { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div id="wc-loading"><div class="badge">26</div></div>
+<div id="root"></div>
+
+<!-- React + Babel (pinned) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Design system bundle (plain JS) -->
+<script>
+/* @ds-bundle: {"format":3,"namespace":"MastercardInspiredDesignSystem_30cec0","components":[{"name":"Button","sourcePath":"components/buttons/Button.jsx"},{"name":"IconButton","sourcePath":"components/buttons/IconButton.jsx"},{"name":"SatelliteCTA","sourcePath":"components/buttons/SatelliteCTA.jsx"},{"name":"MediaFrame","sourcePath":"components/cards/MediaFrame.jsx"},{"name":"PortraitCard","sourcePath":"components/cards/PortraitCard.jsx"},{"name":"Chip","sourcePath":"components/feedback/Chip.jsx"},{"name":"Eyebrow","sourcePath":"components/feedback/Eyebrow.jsx"},{"name":"SearchInput","sourcePath":"components/forms/SearchInput.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Footer","sourcePath":"components/navigation/Footer.jsx"},{"name":"NavPill","sourcePath":"components/navigation/NavPill.jsx"}],"sourceHashes":{"components/buttons/Button.jsx":"68ba068a7b80","components/buttons/IconButton.jsx":"14fbc5b340d8","components/buttons/SatelliteCTA.jsx":"43fbe24cb6c3","components/cards/MediaFrame.jsx":"620802b2ddf0","components/cards/PortraitCard.jsx":"23a55155dd1d","components/feedback/Chip.jsx":"36c82b4e3412","components/feedback/Eyebrow.jsx":"3a1841298833","components/forms/SearchInput.jsx":"096bd190e86b","components/forms/Select.jsx":"c42141cd6355","components/navigation/Footer.jsx":"cfabd394e608","components/navigation/NavPill.jsx":"3dbb917891f6","ui_kits/marketing/Homepage.jsx":"7c66bb8e9d68"},"inlinedExternals":[],"unexposedExports":[]} */
+
+(() => {
+
+const __ds_ns = (window.MastercardInspiredDesignSystem_30cec0 = window.MastercardInspiredDesignSystem_30cec0 || {});
+
+const __ds_scope = {};
+
+(__ds_ns.__errors = __ds_ns.__errors || []);
+
+// components/buttons/Button.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Button — the brand's pill CTAs.
+ *
+ * Three variants, each tied to a meaning:
+ *  - primary   : Ink Black pill, cream text, 20px radius. All marketing CTAs.
+ *  - secondary : White pill, ink outline + text, 20px radius. Paired/utility.
+ *  - consent   : Signal Orange pill, white text, 24px radius. CONSENT/LEGAL ONLY.
+ *
+ * Never use the consent variant for marketing — the orange reads as a
+ * compliance color and dilutes the legal signal.
+ */
+function Button({
+  variant = 'primary',
+  size = 'md',
+  as = 'button',
+  children,
+  className = '',
+  style = {},
+  ...rest
+}) {
+  const base = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontFamily: 'var(--font-sans)',
+    cursor: 'pointer',
+    border: '1.5px solid transparent',
+    whiteSpace: 'nowrap',
+    transition: 'transform 120ms ease, background-color 120ms ease, color 120ms ease',
+    textDecoration: 'none'
+  };
+  const sizes = {
+    sm: {
+      fontSize: '13px',
+      padding: '4px 18px',
+      lineHeight: '20px'
+    },
+    md: {
+      fontSize: '16px',
+      padding: '6px 24px',
+      lineHeight: '20px'
+    },
+    lg: {
+      fontSize: '16px',
+      padding: '16px 40px',
+      lineHeight: '20px',
+      borderRadius: 'var(--radius-stadium)'
+    }
+  };
+  const variants = {
+    primary: {
+      background: 'var(--action-primary-bg)',
+      color: 'var(--action-primary-fg)',
+      borderColor: 'var(--action-primary-bg)',
+      borderRadius: 'var(--radius-btn)',
+      fontWeight: 500,
+      letterSpacing: '-0.32px'
+    },
+    secondary: {
+      background: 'var(--action-secondary-bg)',
+      color: 'var(--action-secondary-fg)',
+      borderColor: 'var(--border-strong)',
+      borderRadius: 'var(--radius-btn)',
+      fontWeight: 450,
+      letterSpacing: '-0.32px'
+    },
+    consent: {
+      background: 'var(--action-consent-bg)',
+      color: 'var(--action-consent-fg)',
+      borderColor: 'var(--action-consent-bg)',
+      borderRadius: 'var(--radius-consent)',
+      fontWeight: 400,
+      letterSpacing: '0.13px'
+    }
+  };
+  const Tag = as;
+  const merged = {
+    ...base,
+    ...sizes[size],
+    ...variants[variant],
+    ...style
+  };
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    className: `mc-btn mc-btn--${variant} ${className}`,
+    style: merged,
+    onMouseDown: e => {
+      e.currentTarget.style.transform = 'scale(0.97)';
+    },
+    onMouseUp: e => {
+      e.currentTarget.style.transform = 'scale(1)';
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.transform = 'scale(1)';
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { Button });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/buttons/Button.jsx", error: String((e && e.message) || e) }); }
+
+// components/buttons/IconButton.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * IconButton — circular icon-only control for carousel arrows, play/pause,
+ * search toggle. Outlined on cream, borderless over media.
+ */
+function IconButton({
+  size = 48,
+  variant = 'outline',
+  as = 'button',
+  children,
+  className = '',
+  style = {},
+  ...rest
+}) {
+  const Tag = as;
+  const variants = {
+    outline: {
+      background: 'transparent',
+      border: '1px solid var(--border-strong)',
+      color: 'var(--ink)'
+    },
+    solid: {
+      background: 'var(--white)',
+      border: 'none',
+      color: 'var(--ink)'
+    },
+    ghost: {
+      background: 'transparent',
+      border: 'none',
+      color: 'var(--ink)'
+    }
+  };
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    className: `mc-iconbtn ${className}`,
+    "aria-label": rest['aria-label'] || 'Action',
+    style: {
+      width: size,
+      height: size,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 'var(--radius-circle)',
+      cursor: 'pointer',
+      fontSize: size * 0.34,
+      lineHeight: 1,
+      transition: 'background-color 140ms ease, transform 120ms ease',
+      ...variants[variant],
+      ...style
+    },
+    onMouseDown: e => {
+      e.currentTarget.style.transform = 'scale(0.94)';
+    },
+    onMouseUp: e => {
+      e.currentTarget.style.transform = 'scale(1)';
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.transform = 'scale(1)';
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { IconButton });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/buttons/IconButton.jsx", error: String((e && e.message) || e) }); }
+
+// components/buttons/SatelliteCTA.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * SatelliteCTA — the circular white micro-CTA that docks onto the bottom-right
+ * edge of a circular portrait, protruding ~40% outside it like a moon.
+ * The single most distinctive entry-point control in the system.
+ */
+function SatelliteCTA({
+  size = 56,
+  icon = '→',
+  as = 'button',
+  className = '',
+  style = {},
+  ...rest
+}) {
+  const Tag = as;
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    className: `mc-satellite ${className}`,
+    "aria-label": rest['aria-label'] || 'Open',
+    style: {
+      width: size,
+      height: size,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 'var(--radius-circle)',
+      background: 'var(--white)',
+      color: 'var(--ink)',
+      border: 'none',
+      cursor: 'pointer',
+      fontSize: size * 0.4,
+      lineHeight: 1,
+      boxShadow: 'var(--shadow-1)',
+      transition: 'transform 140ms ease',
+      ...style
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.transform = 'translateX(2px)';
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.transform = 'translateX(0)';
+    }
+  }, rest), icon);
+}
+Object.assign(__ds_scope, { SatelliteCTA });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/buttons/SatelliteCTA.jsx", error: String((e && e.message) || e) }); }
+
+// components/cards/MediaFrame.jsx
+try { (() => {
+/**
+ * MediaFrame — the iconic 40px-radius "stadium" container for hero video or
+ * full-bleed imagery. Sits directly on the cream canvas, usually no shadow.
+ */
+function MediaFrame({
+  image,
+  height = 520,
+  radius = 'var(--radius-stadium)',
+  elevated = false,
+  children,
+  className = '',
+  style = {}
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `mc-media-frame ${className}`,
+    style: {
+      position: 'relative',
+      width: '100%',
+      height,
+      borderRadius: radius,
+      overflow: 'hidden',
+      background: image ? `center / cover no-repeat url(${image})` : 'linear-gradient(135deg, #2B2B2B, #141413)',
+      boxShadow: elevated ? 'var(--shadow-2)' : 'none',
+      ...style
+    }
+  }, children);
+}
+Object.assign(__ds_scope, { MediaFrame });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/cards/MediaFrame.jsx", error: String((e && e.message) || e) }); }
+
+// components/cards/PortraitCard.jsx
+try { (() => {
+/**
+ * PortraitCard — circular photo portrait with an attached satellite CTA, an
+ * eyebrow label, and a title. The core "constellation" unit. Place these
+ * ASYMMETRICALLY (never on a tidy grid) and let orbital arcs connect them.
+ */
+function PortraitCard({
+  image,
+  eyebrow = 'Services',
+  title,
+  diameter = 300,
+  onOpen,
+  className = '',
+  style = {}
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `mc-portrait-card ${className}`,
+    style: {
+      width: diameter,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      width: diameter,
+      height: diameter
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 'var(--radius-circle)',
+      overflow: 'hidden',
+      background: image ? `center / cover no-repeat url(${image})` : 'radial-gradient(circle at 35% 30%, #F7A878, #CF4500 68%, #9A3A0A)',
+      boxShadow: 'var(--shadow-2)'
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      right: '6%',
+      bottom: '8%'
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.SatelliteCTA, {
+    size: Math.round(diameter * 0.19),
+    "aria-label": `Open ${title || eyebrow}`,
+    onClick: onOpen
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "mc-eyebrow"
+  }, eyebrow), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      maxWidth: diameter
+    }
+  }, title)));
+}
+Object.assign(__ds_scope, { PortraitCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/cards/PortraitCard.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Chip.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Chip — small pill label. White category chip over media ("Story"), or an
+ * ink/outline variant. Always fully pill-shaped (999px).
+ */
+function Chip({
+  variant = 'white',
+  children,
+  className = '',
+  style = {},
+  ...rest
+}) {
+  const variants = {
+    white: {
+      background: 'var(--white)',
+      color: 'var(--ink)',
+      border: 'none'
+    },
+    ink: {
+      background: 'var(--ink)',
+      color: 'var(--canvas)',
+      border: 'none'
+    },
+    outline: {
+      background: 'transparent',
+      color: 'var(--ink)',
+      border: '1.5px solid var(--border-strong)'
+    }
+  };
+  return /*#__PURE__*/React.createElement("span", _extends({
+    className: `mc-chip ${className}`,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      padding: '8px 20px',
+      borderRadius: 'var(--radius-pill)',
+      fontFamily: 'var(--font-sans)',
+      fontSize: '14px',
+      fontWeight: 500,
+      lineHeight: 1,
+      letterSpacing: '-0.2px',
+      ...variants[variant],
+      ...style
+    }
+  }, rest), children);
+}
+Object.assign(__ds_scope, { Chip });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Chip.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Eyebrow.jsx
+try { (() => {
+/**
+ * Eyebrow — the section-category signal: a tiny accent dot + uppercase tracked
+ * label. The dot is the brand's identity; never omit it.
+ */
+function Eyebrow({
+  children,
+  color = 'var(--accent-dot)',
+  className = '',
+  style = {}
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    className: `mc-eyebrow ${className}`,
+    style: {
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      background: color,
+      flex: 'none'
+    }
+  }), children);
+}
+Object.assign(__ds_scope, { Eyebrow });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Eyebrow.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/SearchInput.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * SearchInput — the nav search. Collapsed it's a 48px circular icon button;
+ * expanded it's a full-pill input with a hairline ink outline.
+ */
+function SearchInput({
+  expanded = false,
+  placeholder = 'Search',
+  onToggle,
+  className = '',
+  style = {},
+  ...rest
+}) {
+  if (!expanded) {
+    return /*#__PURE__*/React.createElement("button", {
+      "aria-label": "Open search",
+      onClick: onToggle,
+      className: `mc-search mc-search--collapsed ${className}`,
+      style: {
+        width: 48,
+        height: 48,
+        borderRadius: 'var(--radius-circle)',
+        border: '1px solid var(--border-hairline)',
+        background: 'var(--white)',
+        color: 'var(--ink)',
+        fontSize: 18,
+        cursor: 'pointer',
+        ...style
+      }
+    }, "\u2315");
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: `mc-search mc-search--expanded ${className}`,
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      background: 'var(--white)',
+      borderRadius: 'var(--radius-pill)',
+      border: '1px solid var(--border-hairline)',
+      padding: '12px 24px',
+      minWidth: 280,
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      fontSize: 18,
+      color: 'var(--ink)'
+    }
+  }, "\u2315"), /*#__PURE__*/React.createElement("input", _extends({
+    type: "text",
+    placeholder: placeholder,
+    style: {
+      border: 'none',
+      outline: 'none',
+      background: 'transparent',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 16,
+      fontWeight: 450,
+      color: 'var(--ink)',
+      flex: 1
+    }
+  }, rest)));
+}
+Object.assign(__ds_scope, { SearchInput });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/SearchInput.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Select.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/**
+ * Select — pill dropdown. Two surfaces: `light` (white pill, ink outline on
+ * cream) and `inverse` (transparent on ink, used in the footer country picker).
+ */
+function Select({
+  options = [],
+  value,
+  onChange,
+  surface = 'light',
+  className = '',
+  style = {},
+  ...rest
+}) {
+  const surfaces = {
+    light: {
+      background: 'var(--white)',
+      color: 'var(--ink)',
+      border: '1px solid var(--border-hairline)'
+    },
+    inverse: {
+      background: 'transparent',
+      color: 'var(--white)',
+      border: '1px solid var(--border-on-inverse)'
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: `mc-select ${className}`,
+    style: {
+      position: 'relative',
+      display: 'inline-flex',
+      alignItems: 'center',
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("select", _extends({
+    value: value,
+    onChange: onChange,
+    style: {
+      appearance: 'none',
+      WebkitAppearance: 'none',
+      borderRadius: 'var(--radius-pill)',
+      padding: '10px 40px 10px 20px',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      fontWeight: 450,
+      cursor: 'pointer',
+      ...surfaces[surface]
+    }
+  }, rest), options.map(o => /*#__PURE__*/React.createElement("option", {
+    key: o,
+    value: o,
+    style: {
+      color: '#141413'
+    }
+  }, o))), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      position: 'absolute',
+      right: 18,
+      pointerEvents: 'none',
+      fontSize: 12,
+      opacity: 0.8
+    }
+  }, "\u2304"));
+}
+Object.assign(__ds_scope, { Select });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Select.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/Footer.jsx
+try { (() => {
+/**
+ * Footer — dark warm-ink footer with a large conversational headline, a
+ * 4-column link grid (uppercase muted headers), a hairline divider, and a
+ * bottom row with copyright, legal links, a pill country selector + socials.
+ */
+function Footer({
+  headline = "We're always here when you need us",
+  columns = DEFAULT_COLUMNS,
+  country = 'United States · English',
+  className = '',
+  style = {}
+}) {
+  return /*#__PURE__*/React.createElement("footer", {
+    className: `mc-footer ${className}`,
+    style: {
+      background: 'var(--surface-inverse)',
+      color: 'var(--text-on-inverse)',
+      padding: '100px 48px 148px',
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto'
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      color: 'var(--white)',
+      maxWidth: 560,
+      marginBottom: 72
+    }
+  }, headline), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: 40,
+      marginBottom: 80
+    }
+  }, columns.map(col => /*#__PURE__*/React.createElement("div", {
+    key: col.title
+  }, /*#__PURE__*/React.createElement("h4", {
+    style: {
+      fontSize: 13,
+      fontWeight: 700,
+      letterSpacing: '0.56px',
+      textTransform: 'uppercase',
+      color: 'rgba(255,255,255,0.55)',
+      marginBottom: 20
+    }
+  }, col.title), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14
+    }
+  }, col.links.map(link => /*#__PURE__*/React.createElement("li", {
+    key: link.label
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      fontSize: 14,
+      fontWeight: 450,
+      color: 'rgba(255,255,255,0.88)'
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.color = '#fff';
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.color = 'rgba(255,255,255,0.88)';
+    }
+  }, link.label, link.external ? ' ↗' : ''))))))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 1,
+      background: 'rgba(255,255,255,0.18)',
+      marginBottom: 32
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      gap: 24
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 24,
+      flexWrap: 'wrap',
+      fontSize: 13,
+      color: 'rgba(255,255,255,0.6)'
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "\xA9 ", new Date().getFullYear(), " Brand Placeholder"), /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      color: 'rgba(255,255,255,0.6)'
+    }
+  }, "Privacy Notice"), /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      color: 'rgba(255,255,255,0.6)'
+    }
+  }, "Terms of Use"), /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      color: 'rgba(255,255,255,0.6)'
+    }
+  }, "Your Privacy Choices")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 24
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      background: 'transparent',
+      color: 'var(--white)',
+      border: '1px solid var(--border-on-inverse)',
+      borderRadius: 'var(--radius-pill)',
+      padding: '10px 20px',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      cursor: 'pointer'
+    }
+  }, country, " ", /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true"
+  }, "\u2304")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 16,
+      fontSize: 16
+    },
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", null, "in"), /*#__PURE__*/React.createElement("span", null, "f"), /*#__PURE__*/React.createElement("span", null, "\uD835\uDD4F"), /*#__PURE__*/React.createElement("span", null, "\u25B6"))))));
+}
+const DEFAULT_COLUMNS = [{
+  title: 'For you',
+  links: [{
+    label: 'Personal cards'
+  }, {
+    label: 'Benefits'
+  }, {
+    label: 'Security'
+  }, {
+    label: 'Find a card'
+  }]
+}, {
+  title: 'For business',
+  links: [{
+    label: 'Solutions'
+  }, {
+    label: 'Payments'
+  }, {
+    label: 'Developers',
+    external: true
+  }, {
+    label: 'Partners'
+  }]
+}, {
+  title: 'Company',
+  links: [{
+    label: 'About us'
+  }, {
+    label: 'Newsroom',
+    external: true
+  }, {
+    label: 'Careers',
+    external: true
+  }, {
+    label: 'Investors',
+    external: true
+  }]
+}, {
+  title: 'Need help?',
+  links: [{
+    label: 'Contact support'
+  }, {
+    label: 'Lost or stolen card'
+  }, {
+    label: 'Find an ATM'
+  }, {
+    label: 'FAQ'
+  }]
+}];
+Object.assign(__ds_scope, { Footer });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Footer.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/NavPill.jsx
+try { (() => {
+/**
+ * NavPill — the floating white navigation pill that docks ~24px below the top
+ * of the viewport with full-pill shoulders and a barely-there shadow.
+ * Logo left, ≤6 centered links, search toggle right.
+ */
+function NavPill({
+  logoSrc = '../../assets/brand-mark.svg',
+  links = ['For you', 'For business', 'For the world', 'For innovators', 'News and trends'],
+  active,
+  onSearch,
+  className = '',
+  style = {}
+}) {
+  return /*#__PURE__*/React.createElement("nav", {
+    className: `mc-navpill ${className}`,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '32px',
+      background: 'var(--white)',
+      borderRadius: 'var(--radius-pill)',
+      boxShadow: 'var(--shadow-1)',
+      padding: '14px 18px 14px 28px',
+      ...style
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: logoSrc,
+    alt: "Brand",
+    style: {
+      height: 30,
+      flex: 'none'
+    }
+  }), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '40px',
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+      flex: 1,
+      justifyContent: 'center'
+    }
+  }, links.map(l => /*#__PURE__*/React.createElement("li", {
+    key: l
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      fontSize: '16px',
+      fontWeight: 500,
+      letterSpacing: '-0.48px',
+      color: 'var(--ink)',
+      opacity: active && active !== l ? 0.62 : 1,
+      whiteSpace: 'nowrap',
+      transition: 'opacity 120ms ease'
+    },
+    onMouseEnter: e => {
+      e.currentTarget.style.opacity = 0.62;
+    },
+    onMouseLeave: e => {
+      e.currentTarget.style.opacity = active && active !== l ? 0.62 : 1;
+    }
+  }, l)))), /*#__PURE__*/React.createElement("button", {
+    "aria-label": "Search",
+    onClick: onSearch,
+    style: {
+      width: 48,
+      height: 48,
+      flex: 'none',
+      borderRadius: 'var(--radius-circle)',
+      border: '1px solid var(--border-hairline)',
+      background: 'var(--white)',
+      color: 'var(--ink)',
+      fontSize: 18,
+      cursor: 'pointer'
+    }
+  }, "\u2315"));
+}
+Object.assign(__ds_scope, { NavPill });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/NavPill.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/marketing/Homepage.jsx
+try { (() => {
+/* global React */
+const {
+  useState
+} = React;
+
+// Pull primitives from the compiled design-system bundle.
+const DS = window.MastercardInspiredDesignSystem_30cec0;
+const {
+  Button,
+  IconButton,
+  SatelliteCTA,
+  MediaFrame,
+  PortraitCard,
+  Chip,
+  Eyebrow,
+  SearchInput,
+  Footer,
+  NavPill
+} = DS;
+const LOGO = '../../assets/brand-mark.svg';
+
+/* ---------------------------------------------------------------- Hero --- */
+function Hero() {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto',
+      padding: '0 48px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1.1fr 0.9fr',
+      gap: 48,
+      alignItems: 'end',
+      marginBottom: 40
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    className: "mc-eyebrow",
+    style: {
+      marginBottom: 20,
+      display: 'inline-flex'
+    }
+  }, "Priceless possibilities"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: 64,
+      lineHeight: '64px',
+      letterSpacing: '-1.28px',
+      marginTop: 16
+    }
+  }, "Money moves", /*#__PURE__*/React.createElement("br", null), "the world forward.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      paddingBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      lineHeight: '22.4px',
+      fontWeight: 450,
+      color: 'var(--ink)',
+      maxWidth: 380,
+      marginBottom: 24
+    }
+  }, "We connect people, businesses and governments with secure, seamless payments \u2014 building an economy that works for everyone, everywhere."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement(Button, {
+    variant: "primary"
+  }, "Explore solutions"), /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary"
+  }, "For business")))), /*#__PURE__*/React.createElement(MediaFrame, {
+    height: 520
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      inset: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    variant: "solid",
+    size: 84,
+    "aria-label": "Play film"
+  }, "\u25B6")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      left: 40,
+      bottom: 36
+    }
+  }, /*#__PURE__*/React.createElement(Chip, {
+    variant: "white"
+  }, "Our story \xB7 2:14"))));
+}
+
+/* ----------------------------------------------- Services constellation --- */
+function Services() {
+  const cards = [{
+    eyebrow: 'Services',
+    title: 'Fraud protection that learns',
+    top: 40,
+    left: 60,
+    d: 280
+  }, {
+    eyebrow: 'Solutions',
+    title: 'Payments built for scale',
+    top: 220,
+    left: 470,
+    d: 240
+  }, {
+    eyebrow: 'Insights',
+    title: 'Data that drives decisions',
+    top: 90,
+    left: 850,
+    d: 300
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      position: 'relative',
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto',
+      padding: '128px 48px 96px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "mc-ghost",
+    style: {
+      position: 'absolute',
+      left: 24,
+      top: 70,
+      fontSize: 128
+    }
+  }, "What we do"), /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 1184 560",
+    preserveAspectRatio: "none",
+    fill: "none",
+    style: {
+      position: 'absolute',
+      left: 48,
+      right: 48,
+      top: 200,
+      width: 'calc(100% - 96px)',
+      height: 460,
+      pointerEvents: 'none'
+    }
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M200 220 C 360 360, 520 380, 690 360 S 980 220, 1080 260",
+    stroke: "var(--accent-orbit)",
+    strokeWidth: "1.5",
+    fill: "none"
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      height: 620
+    }
+  }, cards.map(c => /*#__PURE__*/React.createElement("div", {
+    key: c.title,
+    style: {
+      position: 'absolute',
+      top: c.top,
+      left: c.left
+    }
+  }, /*#__PURE__*/React.createElement(PortraitCard, {
+    eyebrow: c.eyebrow,
+    title: c.title,
+    diameter: c.d
+  })))));
+}
+
+/* ------------------------------------------------------- Story carousel --- */
+function Stories() {
+  const grads = ['radial-gradient(circle at 30% 25%, #F7A878, #CF4500 70%, #7a2c06)', 'linear-gradient(150deg, #3860BE, #141413)', 'radial-gradient(circle at 40% 30%, #E8D9C5, #9A3A0A 80%)'];
+  const items = [{
+    tag: 'Story',
+    title: 'How small businesses go global'
+  }, {
+    tag: 'Report',
+    title: 'The future of digital trust'
+  }, {
+    tag: 'Story',
+    title: 'Inclusion through technology'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: 'var(--cream-lifted)',
+      padding: '96px 0'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto',
+      padding: '0 48px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-end',
+      marginBottom: 40
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Eyebrow, null, "Newsroom"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      marginTop: 14
+    }
+  }, "Stories worth sharing")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement(IconButton, {
+    "aria-label": "Previous"
+  }, "\u2190"), /*#__PURE__*/React.createElement(IconButton, {
+    "aria-label": "Next"
+  }, "\u2192"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: 24
+    }
+  }, items.map((it, i) => /*#__PURE__*/React.createElement("article", {
+    key: it.title,
+    style: {
+      position: 'relative',
+      height: 420,
+      borderRadius: 40,
+      overflow: 'hidden',
+      background: grads[i],
+      boxShadow: 'var(--shadow-2)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      top: 24,
+      left: 24
+    }
+  }, /*#__PURE__*/React.createElement(Chip, {
+    variant: "white"
+  }, it.tag)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      left: 28,
+      right: 28,
+      bottom: 28
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      color: 'var(--white)',
+      marginBottom: 18
+    }
+  }, it.title), /*#__PURE__*/React.createElement(Button, {
+    variant: "secondary",
+    size: "sm"
+  }, "Read story")))))));
+}
+
+/* ----------------------------------------------------------- CTA band --- */
+function CTABand() {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto',
+      padding: '128px 48px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+      gap: 28
+    }
+  }, /*#__PURE__*/React.createElement(Eyebrow, null, "Get started"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 48,
+      lineHeight: '52px',
+      letterSpacing: '-0.96px',
+      maxWidth: 720
+    }
+  }, "Ready to build what comes next?"), /*#__PURE__*/React.createElement(Button, {
+    variant: "primary",
+    size: "lg"
+  }, "Talk to our team")));
+}
+
+/* ----------------------------------------------------- Cookie consent --- */
+function CookieBanner({
+  onDismiss
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'fixed',
+      left: 24,
+      right: 24,
+      bottom: 24,
+      zIndex: 50,
+      background: 'var(--white)',
+      borderRadius: 24,
+      boxShadow: 'var(--shadow-2)',
+      padding: '20px 28px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 24,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14,
+      fontWeight: 450,
+      color: 'var(--ink)',
+      flex: 1,
+      minWidth: 280
+    }
+  }, "We use cookies to personalize content and analyze traffic. See our Privacy Notice for details."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 12,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onDismiss,
+    style: {
+      background: 'none',
+      border: 'none',
+      color: 'var(--clay-brown)',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      fontWeight: 500,
+      cursor: 'pointer'
+    }
+  }, "Cookie details"), /*#__PURE__*/React.createElement(Button, {
+    variant: "consent",
+    onClick: onDismiss
+  }, "Accept all cookies")));
+}
+
+/* --------------------------------------------------------- Page shell --- */
+function Homepage() {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [cookies, setCookies] = useState(true);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'var(--canvas)',
+      minHeight: '100vh'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'sticky',
+      top: 24,
+      zIndex: 40,
+      padding: '0 48px',
+      marginBottom: 64
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 'var(--container-max)',
+      margin: '0 auto'
+    }
+  }, /*#__PURE__*/React.createElement(CustomNav, {
+    searchOpen: searchOpen,
+    onSearch: () => setSearchOpen(v => !v)
+  }))), /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Services, null), /*#__PURE__*/React.createElement(Stories, null), /*#__PURE__*/React.createElement(CTABand, null), /*#__PURE__*/React.createElement(Footer, null), cookies && /*#__PURE__*/React.createElement(CookieBanner, {
+    onDismiss: () => setCookies(false)
+  }));
+}
+
+/* Nav with a working search toggle (wraps NavPill's structure). */
+function CustomNav({
+  searchOpen,
+  onSearch
+}) {
+  const links = ['For you', 'For business', 'For the world', 'For innovators', 'News and trends'];
+  return /*#__PURE__*/React.createElement("nav", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 32,
+      background: 'var(--white)',
+      borderRadius: 999,
+      boxShadow: 'var(--shadow-1)',
+      padding: '14px 18px 14px 28px'
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: LOGO,
+    alt: "Brand",
+    style: {
+      height: 30,
+      flex: 'none'
+    }
+  }), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      display: 'flex',
+      gap: 40,
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+      flex: 1,
+      justifyContent: 'center'
+    }
+  }, links.map((l, i) => /*#__PURE__*/React.createElement("li", {
+    key: l
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#",
+    style: {
+      fontSize: 16,
+      fontWeight: 500,
+      letterSpacing: '-0.48px',
+      color: 'var(--ink)',
+      opacity: i === 0 ? 1 : 0.7
+    }
+  }, l)))), /*#__PURE__*/React.createElement(SearchInput, {
+    expanded: searchOpen,
+    onToggle: onSearch,
+    placeholder: "Search mastercard.com"
+  }), !searchOpen && null);
+}
+window.Homepage = Homepage;
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/marketing/Homepage.jsx", error: String((e && e.message) || e) }); }
+
+__ds_ns.Button = __ds_scope.Button;
+
+__ds_ns.IconButton = __ds_scope.IconButton;
+
+__ds_ns.SatelliteCTA = __ds_scope.SatelliteCTA;
+
+__ds_ns.MediaFrame = __ds_scope.MediaFrame;
+
+__ds_ns.PortraitCard = __ds_scope.PortraitCard;
+
+__ds_ns.Chip = __ds_scope.Chip;
+
+__ds_ns.Eyebrow = __ds_scope.Eyebrow;
+
+__ds_ns.SearchInput = __ds_scope.SearchInput;
+
+__ds_ns.Select = __ds_scope.Select;
+
+__ds_ns.Footer = __ds_scope.Footer;
+
+__ds_ns.NavPill = __ds_scope.NavPill;
+
+})();
+
+</script>
+
+<!-- App data (plain JS) -->
+<script>
+/* =========================================================================
+   World Cup 2026 — Office Sweepstakes data
+   Schema mirrors the source repo (thisispatt/worldcup2026 · src/data.js):
+     entries[]   { name, team }
+     groups{}    { A: [ {name, flag, played, won, drawn, lost, gf, ga, status} ] }
+     fixtures[]  { id, group, round, date, time, home, away, score1, score2, played }
+     knockout{}  rounds of { id, home, away, score1, score2, played, date, time }
+     teamStatus{} override map for knockout
+     prize{}     pot config
+   Flags are REAL national flags (flagcdn SVG), never emoji — keyed by ISO code.
+   Attaches to window.WC.
+   ========================================================================= */
+(function () {
+  // ---- ISO 3166 alpha-2 (flagcdn) codes for every nation in play ----------
+  const CODE = {
+    Canada: 'ca', Belgium: 'be', Morocco: 'ma', Japan: 'jp',
+    Mexico: 'mx', Croatia: 'hr', Senegal: 'sn', Australia: 'au',
+    USA: 'us', Netherlands: 'nl', Ghana: 'gh', Iran: 'ir',
+    France: 'fr', Denmark: 'dk', Tunisia: 'tn', Ecuador: 'ec',
+    Spain: 'es', Switzerland: 'ch', Nigeria: 'ng', 'Costa Rica': 'cr',
+    Argentina: 'ar', Poland: 'pl', Egypt: 'eg', 'New Zealand': 'nz',
+    Brazil: 'br', Serbia: 'rs', Cameroon: 'cm', 'Saudi Arabia': 'sa',
+    England: 'gb-eng', Wales: 'gb-wls', Algeria: 'dz', Peru: 'pe',
+    Germany: 'de', Sweden: 'se', "Côte d'Ivoire": 'ci', Qatar: 'qa',
+    Portugal: 'pt', Uruguay: 'uy', 'South Korea': 'kr', Panama: 'pa',
+    Colombia: 'co', Austria: 'at', Mali: 'ml', Uzbekistan: 'uz',
+    Italy: 'it', Norway: 'no', Jamaica: 'jm', Chile: 'cl',
+  };
+  const flag = (name) => `https://flagcdn.com/${CODE[name]}.svg`;
+
+  // ---- 12 groups × 4 teams (48). Group stage complete (3 played each). -----
+  // status: 'advanced' (into knockout) | 'eliminated'
+  const G = (name, w, d, l, gf, ga, status) => ({
+    name, flag: flag(name), code: CODE[name],
+    played: 3, won: w, drawn: d, lost: l, gf, ga,
+    gd: gf - ga, pts: w * 3 + d, status,
+  });
+  const groups = {
+    A: [ G('Belgium',2,1,0,6,2,'advanced'), G('Canada',2,0,1,5,3,'advanced'), G('Morocco',1,0,2,3,4,'eliminated'), G('Japan',0,1,2,2,7,'eliminated') ],
+    B: [ G('Mexico',2,1,0,5,1,'advanced'), G('Croatia',2,0,1,4,3,'advanced'), G('Senegal',1,1,1,4,3,'eliminated'), G('Australia',0,0,3,1,7,'eliminated') ],
+    C: [ G('Netherlands',3,0,0,7,1,'advanced'), G('USA',1,1,1,4,4,'advanced'), G('Ghana',1,1,1,3,3,'eliminated'), G('Iran',0,0,3,1,7,'eliminated') ],
+    D: [ G('France',3,0,0,8,2,'advanced'), G('Denmark',1,1,1,3,3,'advanced'), G('Ecuador',1,1,1,2,2,'eliminated'), G('Tunisia',0,0,3,1,7,'eliminated') ],
+    E: [ G('Spain',2,1,0,6,1,'advanced'), G('Switzerland',2,0,1,4,3,'advanced'), G('Nigeria',1,1,1,3,3,'eliminated'), G('Costa Rica',0,0,3,1,7,'eliminated') ],
+    F: [ G('Argentina',3,0,0,7,1,'advanced'), G('Poland',1,1,1,3,3,'advanced'), G('Egypt',1,0,2,2,4,'eliminated'), G('New Zealand',0,1,2,1,5,'eliminated') ],
+    G: [ G('Brazil',2,1,0,7,2,'advanced'), G('Serbia',1,1,1,4,4,'advanced'), G('Cameroon',1,1,1,3,3,'eliminated'), G('Saudi Arabia',0,1,2,2,7,'eliminated') ],
+    H: [ G('England',2,1,0,5,1,'advanced'), G('Wales',1,2,0,3,2,'advanced'), G('Algeria',0,2,1,2,3,'eliminated'), G('Peru',0,1,2,1,5,'eliminated') ],
+    I: [ G('Germany',3,0,0,6,1,'advanced'), G('Sweden',1,1,1,4,4,'advanced'), G("Côte d'Ivoire",1,0,2,3,4,'eliminated'), G('Qatar',0,1,2,2,6,'eliminated') ],
+    J: [ G('Portugal',2,1,0,6,2,'advanced'), G('Uruguay',2,0,1,5,3,'advanced'), G('South Korea',1,0,2,3,5,'eliminated'), G('Panama',0,1,2,1,5,'eliminated') ],
+    K: [ G('Colombia',2,1,0,5,2,'advanced'), G('Austria',1,1,1,3,3,'eliminated'), G('Mali',1,1,1,3,3,'eliminated'), G('Uzbekistan',0,1,2,2,5,'eliminated') ],
+    L: [ G('Italy',2,0,1,4,2,'advanced'), G('Norway',2,0,1,5,3,'eliminated'), G('Jamaica',1,1,1,3,4,'eliminated'), G('Chile',1,1,1,2,3,'eliminated') ],
+  };
+
+  // ---- Knockout bracket (Round of 16 → Final + 3rd place) ------------------
+  // We are on QUARTERFINAL DAY: R16 complete, two QFs played, two QFs to come.
+  const K = (id, home, away, s1, s2, played, date, time, pens) =>
+    ({ id, home, away, score1: s1, score2: s2, played, date, time, pens });
+  const knockout = {
+    r16: [
+      K('r16-1','France','Switzerland',2,1,true,'11 Jul','17:00'),
+      K('r16-2','Spain','Denmark',3,0,true,'11 Jul','21:00'),
+      K('r16-3','Argentina','Wales',2,0,true,'12 Jul','17:00'),
+      K('r16-4','England','Poland',1,0,true,'12 Jul','21:00'),
+      K('r16-5','Brazil','Sweden',4,1,true,'13 Jul','17:00'),
+      K('r16-6','Germany','Serbia',2,2,true,'13 Jul','21:00','4–3'),
+      K('r16-7','Portugal','Croatia',1,0,true,'14 Jul','17:00'),
+      K('r16-8','Mexico','Uruguay',2,1,true,'14 Jul','21:00'),
+    ],
+    qf: [
+      K('qf-1','France','Spain',2,1,true,'18 Jul','17:00'),
+      K('qf-2','Argentina','England',1,0,true,'18 Jul','21:00'),
+      K('qf-3','Brazil','Germany',null,null,false,'19 Jul','17:00'),
+      K('qf-4','Portugal','Mexico',null,null,false,'19 Jul','21:00'),
+    ],
+    sf: [
+      K('sf-1','France','Argentina',null,null,false,'22 Jul','21:00'),
+      K('sf-2','Winner QF3','Winner QF4',null,null,false,'23 Jul','21:00'),
+    ],
+    final: [ K('final','TBD','TBD',null,null,false,'26 Jul','20:00') ],
+    third: [ K('third','TBD','TBD',null,null,false,'25 Jul','17:00') ],
+  };
+
+  // ---- Today's slate (drives the hero) -------------------------------------
+  const todayDate = '19 Jul';
+  const today = knockout.qf.map(m => ({ ...m, stage: 'Quarter-final' }));
+
+  // ---- Sweepstakes: a 24-person office, each drawn one nation --------------
+  // alive flag computed from team's deepest surviving round.
+  const aliveTeams = new Set([
+    'France','Argentina','Brazil','Germany','Portugal','Mexico', // QF teams (still in)
+  ]);
+  const r16Losers = new Set(['Switzerland','Denmark','Wales','Poland','Sweden','Serbia','Croatia','Uruguay']);
+  const qfLosers = new Set(['Spain','England']);
+  const entries = [
+    { name: 'Aoife Brennan',   team: 'France' },
+    { name: 'Marcus Webb',     team: 'Argentina' },
+    { name: 'Priya Nair',      team: 'Brazil' },
+    { name: 'Tom Sullivan',    team: 'Germany' },
+    { name: 'Lena Fischer',    team: 'Portugal' },
+    { name: 'Diego Alvarez',   team: 'Mexico' },
+    { name: 'Hannah Okafor',   team: 'Spain' },
+    { name: 'Jack Donnelly',   team: 'England' },
+    { name: 'Yuki Tanaka',     team: 'Switzerland' },
+    { name: 'Sofia Rossi',     team: 'Denmark' },
+    { name: 'Owen Pritchard',  team: 'Wales' },
+    { name: 'Kasia Wójcik',    team: 'Poland' },
+    { name: 'Erik Lindqvist',  team: 'Sweden' },
+    { name: 'Mila Petrović',   team: 'Serbia' },
+    { name: 'Ivo Marković',    team: 'Croatia' },
+    { name: 'Lucía Méndez',    team: 'Uruguay' },
+    { name: 'Sam Carter',      team: 'Netherlands' },
+    { name: 'Grace Mensah',    team: 'Belgium' },
+    { name: 'Noah Bennett',    team: 'Colombia' },
+    { name: 'Chiara Conti',    team: 'Italy' },
+    { name: 'Liam Walsh',      team: 'Canada' },
+    { name: 'Amara Diallo',    team: 'Senegal' },
+    { name: 'Ben Foster',      team: 'USA' },
+    { name: 'Nora Haugen',     team: 'Norway' },
+  ];
+  // team -> {alive, out_round}
+  const teamFate = {};
+  for (const e of entries) {
+    let alive = aliveTeams.has(e.team);
+    let out = null;
+    if (r16Losers.has(e.team)) out = 'Round of 16';
+    else if (qfLosers.has(e.team)) out = 'Quarter-final';
+    else if (!alive) out = 'Group stage';
+    teamFate[e.team] = { alive, out };
+  }
+
+  // ---- Prize pot -----------------------------------------------------------
+  const prize = {
+    currency: '£',
+    entryFee: 5,
+    players: entries.length,
+    get pot() { return this.entryFee * this.players; },
+    splits: [
+      { place: 'Winner',     pct: 60, note: 'Champions of the world' },
+      { place: 'Runner-up',  pct: 25, note: 'So close' },
+      { place: 'Third place', pct: 10, note: 'Bronze finish' },
+      { place: 'Golden boot', pct: 5,  note: 'Drawn the top scorer' },
+    ],
+  };
+
+  window.WC = {
+    CODE, flag, groups, knockout, entries, teamFate, prize,
+    today, todayDate,
+    tournament: { name: 'FIFA World Cup 2026', host: 'USA · Canada · Mexico', teams: 48 },
+    stageLabel: 'Quarter-finals',
+  };
+})();
+
+</script>
+
+<!-- App (Babel/JSX) -->
+<script type="text/babel" data-filename="app/tweaks-panel.jsx">
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+</script>
+<script type="text/babel" data-filename="app/components.jsx">
+/* Shared primitives for the WC2026 app. Exports to window. */
+(function () {
+  const { useState, useRef, useEffect } = React;
+  const DS = window.MastercardInspiredDesignSystem_30cec0;
+  const { Chip, Eyebrow } = DS;
+
+  /* Crest — a real national flag inside the system's circular portrait.
+     size in px. ring adds a hairline. dim greys out eliminated teams. */
+  function Crest({ name, code, src, size = 48, ring = true, dim = false, style = {} }) {
+    const url = src || (code ? `https://flagcdn.com/${code}.svg` : null);
+    return (
+      <span
+        title={name}
+        style={{
+          width: size, height: size, flex: 'none', display: 'inline-block',
+          borderRadius: '50%', overflow: 'hidden', position: 'relative',
+          background: 'var(--bone)',
+          boxShadow: ring ? 'inset 0 0 0 1.5px rgba(20,20,19,0.10)' : 'none',
+          filter: dim ? 'grayscale(1)' : 'none',
+          opacity: dim ? 0.5 : 1,
+          transition: 'filter 200ms ease, opacity 200ms ease',
+          ...style,
+        }}
+      >
+        {url && (
+          <img
+            src={url} alt={name} loading="lazy"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
+        )}
+      </span>
+    );
+  }
+
+  /* A team's name + crest in a row. */
+  function TeamTag({ team, size = 28, bold = false, dim = false, reverse = false, nameStyle = {} }) {
+    const code = team.code || (window.WC.CODE[team.name]);
+    return (
+      <span style={{
+        display: 'inline-flex', alignItems: 'center', gap: 10,
+        flexDirection: reverse ? 'row-reverse' : 'row',
+      }}>
+        <Crest name={team.name} code={code} size={size} dim={dim} />
+        <span style={{
+          fontWeight: bold ? 500 : 450, letterSpacing: '-0.3px',
+          color: dim ? 'var(--text-muted)' : 'var(--ink)', whiteSpace: 'nowrap', ...nameStyle,
+        }}>{team.name}</span>
+      </span>
+    );
+  }
+
+  /* Status chip used across tables / cards. */
+  function StatusChip({ status }) {
+    const map = {
+      advanced:   { label: 'Through', bg: 'var(--ink)',    fg: 'var(--canvas)', bd: 'var(--ink)' },
+      eliminated: { label: 'Out',     bg: 'transparent',   fg: 'var(--text-muted)', bd: 'var(--border-hairline)' },
+      live:       { label: 'Live',    bg: 'var(--signal-orange)', fg: '#fff', bd: 'var(--signal-orange)' },
+    };
+    const s = map[status] || map.eliminated;
+    return (
+      <span style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6,
+        fontSize: 12, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase',
+        padding: '4px 12px', borderRadius: 999,
+        background: s.bg, color: s.fg, border: `1px solid ${s.bd}`,
+      }}>
+        {status === 'live' && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#fff' }} />}
+        {s.label}
+      </span>
+    );
+  }
+
+  /* Section header — eyebrow + big headline, optional aside slot. */
+  function SectionHead({ eyebrow, title, sub, aside }) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 32 }}>
+        <div>
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <h2 style={{ marginTop: 14, fontSize: 'clamp(30px, 4vw, 44px)', lineHeight: 1.02, letterSpacing: '-0.02em' }}>{title}</h2>
+          {sub && <p style={{ marginTop: 14, maxWidth: 560, color: 'var(--text-muted)', fontSize: 17 }}>{sub}</p>}
+        </div>
+        {aside && <div style={{ flex: 'none' }}>{aside}</div>}
+      </div>
+    );
+  }
+
+  /* Soft card surface. */
+  function Card({ children, pad = 32, lifted = false, style = {}, ...rest }) {
+    return (
+      <div {...rest} style={{
+        background: 'var(--white)', borderRadius: 'var(--radius-stadium)',
+        border: '1px solid var(--border-hairline)',
+        boxShadow: lifted ? 'var(--shadow-2)' : 'none',
+        padding: pad, ...style,
+      }}>{children}</div>
+    );
+  }
+
+  /* Score pill for a played match. */
+  function Score({ a, b, pens, muted = false }) {
+    return (
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontVariantNumeric: 'tabular-nums' }}>
+        <span style={{
+          display: 'inline-flex', alignItems: 'center', gap: 10,
+          fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em',
+          color: muted ? 'var(--text-muted)' : 'var(--ink)',
+          padding: '4px 16px', borderRadius: 12, background: 'var(--bone)',
+        }}>
+          <span>{a}</span><span style={{ opacity: 0.4 }}>–</span><span>{b}</span>
+        </span>
+        {pens && <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 700 }}>({pens} pens)</span>}
+      </span>
+    );
+  }
+
+  Object.assign(window, { Crest, TeamTag, StatusChip, SectionHead, Card, Score });
+})();
+
+</script>
+<script type="text/babel" data-filename="app/hero.jsx">
+/* Hero — today's match slate with oversized crests + orbital arc. Exports Hero. */
+(function () {
+  const { useState } = React;
+  const DS = window.MastercardInspiredDesignSystem_30cec0;
+  const { Eyebrow, Button } = DS;
+  const { Crest } = window;
+
+  /* The thin light-orange arc tracing a connection between two portraits. */
+  function OrbitArc() {
+    return (
+      <svg viewBox="0 0 320 120" width="100%" height="100%" preserveAspectRatio="none"
+           style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} aria-hidden="true">
+        <path d="M 20 96 Q 160 -28 300 96" fill="none" stroke="var(--accent-orbit)" strokeWidth="1.5" strokeDasharray="2 6" strokeLinecap="round" />
+        <circle cx="160" cy="34" r="3.5" fill="var(--accent-orbit)" />
+      </svg>
+    );
+  }
+
+  function FeaturedMatch({ m, onOpen, arcs = true }) {
+    const status = m.played ? 'Full time' : 'Kick-off ' + m.time;
+    return (
+      <div style={{
+        position: 'relative', overflow: 'hidden',
+        background: 'var(--cream-lifted)', borderRadius: 'var(--radius-stadium)',
+        border: '1px solid var(--border-hairline)', boxShadow: 'var(--shadow-2)',
+        padding: 'clamp(28px, 4vw, 56px)',
+      }}>
+        {/* ghost watermark */}
+        <div className="mc-ghost" style={{
+          position: 'absolute', right: -10, bottom: -34, fontSize: 'clamp(70px,12vw,150px)',
+          lineHeight: 1, letterSpacing: '-0.04em', whiteSpace: 'nowrap',
+        }}>{m.stage}</div>
+
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <Eyebrow>Match of the day</Eyebrow>
+          <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', color: m.played ? 'var(--text-muted)' : 'var(--signal-orange)' }}>{status}</span>
+        </div>
+
+        <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', gap: 'clamp(12px,3vw,40px)', marginTop: 28 }}>
+          {/* home */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            <Crest name={m.home} code={window.WC.CODE[m.home]} size={132} style={{ boxShadow: 'inset 0 0 0 2px rgba(20,20,19,0.08), var(--shadow-2)' }} />
+            <span style={{ fontSize: 'clamp(20px,2.6vw,30px)', fontWeight: 500, letterSpacing: '-0.02em' }}>{m.home}</span>
+          </div>
+          {/* center */}
+          <div style={{ position: 'relative', minWidth: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', alignSelf: 'stretch' }}>
+            {arcs && <div style={{ position: 'absolute', top: '6%', left: -60, right: -60, height: 90 }}><OrbitArc /></div>}
+            {m.played ? (
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, fontSize: 'clamp(40px,6vw,68px)', fontWeight: 500, letterSpacing: '-0.03em', fontVariantNumeric: 'tabular-nums' }}>
+                <span>{m.score1}</span><span style={{ opacity: 0.3, fontSize: '0.6em' }}>–</span><span>{m.score2}</span>
+              </div>
+            ) : (
+              <div style={{ fontSize: 'clamp(28px,4vw,40px)', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--text-muted)' }}>vs</div>
+            )}
+            <span style={{ marginTop: 10, fontSize: 13, color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase' }}>{m.stage} · {m.date}</span>
+          </div>
+          {/* away */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            <Crest name={m.away} code={window.WC.CODE[m.away]} size={132} style={{ boxShadow: 'inset 0 0 0 2px rgba(20,20,19,0.08), var(--shadow-2)' }} />
+            <span style={{ fontSize: 'clamp(20px,2.6vw,30px)', fontWeight: 500, letterSpacing: '-0.02em' }}>{m.away}</span>
+          </div>
+        </div>
+
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', marginTop: 32 }}>
+          <Button variant="primary" size="md" onClick={onOpen}>View bracket →</Button>
+        </div>
+      </div>
+    );
+  }
+
+  function MiniMatch({ m, onOpen }) {
+    return (
+      <button onClick={onOpen} style={{
+        textAlign: 'left', cursor: 'pointer', font: 'inherit',
+        background: 'var(--white)', border: '1px solid var(--border-hairline)',
+        borderRadius: 'var(--radius-btn)', padding: '18px 20px',
+        display: 'flex', flexDirection: 'column', gap: 14,
+        transition: 'transform 140ms ease, box-shadow 140ms ease',
+      }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = 'var(--shadow-2)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{m.stage}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: m.played ? 'var(--text-muted)' : 'var(--signal-orange)' }}>{m.played ? 'FT' : m.time}</span>
+        </div>
+        <Side name={m.home} score={m.score1} played={m.played} win={m.played && m.score1 > m.score2} />
+        <Side name={m.away} score={m.score2} played={m.played} win={m.played && m.score2 > m.score1} />
+      </button>
+    );
+  }
+  function Side({ name, score, played, win }) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10, minWidth: 0, flex: 1 }}>
+          <Crest name={name} code={window.WC.CODE[name]} size={26} />
+          <span style={{ fontWeight: win ? 500 : 450, color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
+        </span>
+        <span style={{ fontVariantNumeric: 'tabular-nums', fontWeight: 500, fontSize: 18, color: played ? 'var(--ink)' : 'var(--text-whisper)' }}>{played ? score : '–'}</span>
+      </div>
+    );
+  }
+
+  function Hero({ onOpenBracket, layout = 'Featured', arcs = true }) {
+    const WC = window.WC;
+    const featured = WC.today.find(m => !m.played) || WC.today[0];
+    const rest = WC.today.filter(m => m.id !== featured.id);
+    const even = layout === 'Even slate';
+    return (
+      <section style={{ paddingTop: 8 }}>
+        <div style={{ maxWidth: 760, marginBottom: 36 }}>
+          <Eyebrow>{WC.tournament.name}</Eyebrow>
+          <h1 style={{ marginTop: 18, fontSize: 'clamp(40px, 7vw, 72px)', lineHeight: 0.98, letterSpacing: '-0.03em' }}>
+            Quarter-final day.<br />The world is down to eight.
+          </h1>
+          <p style={{ marginTop: 20, fontSize: 18, color: 'var(--text-muted)', maxWidth: 560 }}>
+            Four ties, one date. {WC.tournament.host}. Here's everything kicking off across the office sweepstakes today.
+          </p>
+        </div>
+
+        {even ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
+            {WC.today.map(m => <SlateCard key={m.id} m={m} onOpen={onOpenBracket} arcs={arcs} />)}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.55fr) minmax(0, 1fr)', gap: 24, alignItems: 'start' }} className="wc-hero-grid">
+            <FeaturedMatch m={featured} onOpen={onOpenBracket} arcs={arcs} />
+            <div style={{ display: 'grid', gap: 16 }}>
+              {rest.map(m => <MiniMatch key={m.id} m={m} onOpen={onOpenBracket} />)}
+            </div>
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  /* Even-slate variation: four equal cards with stacked crests. */
+  function SlateCard({ m, onOpen, arcs }) {
+    return (
+      <button onClick={onOpen} style={{
+        textAlign: 'center', cursor: 'pointer', font: 'inherit', position: 'relative', overflow: 'hidden',
+        background: 'var(--white)', border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius-stadium)',
+        padding: '28px 22px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14,
+        transition: 'transform 140ms ease, box-shadow 140ms ease',
+      }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = 'var(--shadow-2)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{m.stage}</span>
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18 }}>
+          {arcs && <div style={{ position: 'absolute', top: -14, left: 6, right: 6, height: 40 }}><OrbitArc /></div>}
+          <Crest name={m.home} code={window.WC.CODE[m.home]} size={66} dim={m.played && m.score1 < m.score2} />
+          <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-whisper)' }}>{m.played ? '' : 'v'}</span>
+          <Crest name={m.away} code={window.WC.CODE[m.away]} size={66} dim={m.played && m.score2 < m.score1} />
+        </div>
+        <div style={{ fontSize: 17, fontWeight: 500, letterSpacing: '-0.02em' }}>{m.home} <span style={{ color: 'var(--text-whisper)' }}>—</span> {m.away}</div>
+        {m.played
+          ? <div style={{ fontSize: 26, fontWeight: 500, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}>{m.score1}<span style={{ opacity: 0.3 }}> – </span>{m.score2}</div>
+          : <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--signal-orange)', padding: '6px 16px', border: '1px solid var(--border-hairline)', borderRadius: 999 }}>Kick-off {m.time}</div>}
+      </button>
+    );
+  }
+
+  window.Hero = Hero;
+})();
+
+</script>
+<script type="text/babel" data-filename="app/tabs1.jsx">
+/* Tabs part 1 — Sweepstakes, Groups (sortable), Fixtures. */
+(function () {
+  const { useState, useMemo } = React;
+  const DS = window.MastercardInspiredDesignSystem_30cec0;
+  const { Eyebrow, Chip, Button } = DS;
+  const { Crest, TeamTag, StatusChip, SectionHead, Card, Score } = window;
+
+  /* ----------------------------------------------------------------- GROUPS */
+  const SORTS = {
+    pts: (a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf,
+    gd:  (a, b) => b.gd - a.gd || b.pts - a.pts || b.gf - a.gf,
+    gf:  (a, b) => b.gf - a.gf || b.pts - a.pts || b.gd - a.gd,
+  };
+
+  function GroupCard({ letter, teams, sortKey, density }) {
+    const rows = [...teams].sort(SORTS[sortKey]);
+    const rowPad = density === 'compact' ? '8px' : density === 'comfy' ? '16px' : '12px';
+    const cols = [
+      { k: 'played', label: 'P' }, { k: 'won', label: 'W' }, { k: 'drawn', label: 'D' },
+      { k: 'lost', label: 'L' }, { k: 'gd', label: 'GD', sortable: 'gd' }, { k: 'pts', label: 'Pts', sortable: 'pts' },
+    ];
+    return (
+      <Card pad={0} style={{ overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 22px 14px', borderBottom: '1px solid var(--border-hairline)' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--ink)', color: 'var(--canvas)', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 15 }}>{letter}</span>
+            <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Group {letter}</span>
+          </span>
+          <span style={{ fontSize: 12, color: 'var(--text-whisper)', fontWeight: 700, letterSpacing: '0.3px', textTransform: 'uppercase' }}>Top 2 advance</span>
+        </div>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontVariantNumeric: 'tabular-nums' }}>
+          <thead>
+            <tr style={{ fontSize: 12, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.3px' }}>
+              <th style={{ textAlign: 'left', padding: `8px 22px`, fontWeight: 700 }}>Team</th>
+              {cols.map(c => (
+                <th key={c.k} style={{ textAlign: 'center', padding: '8px 6px', fontWeight: 700, width: 34 }}>{c.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((t, i) => {
+              const through = i < 2;
+              return (
+                <tr key={t.name} style={{ borderTop: '1px solid var(--border-hairline)', background: through ? 'rgba(20,20,19,0.02)' : 'transparent' }}>
+                  <td style={{ padding: `${rowPad} 22px`, position: 'relative' }}>
+                    {through && <span style={{ position: 'absolute', left: 0, top: 6, bottom: 6, width: 3, borderRadius: 3, background: 'var(--ink)' }} />}
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ width: 18, color: 'var(--text-whisper)', fontSize: 13, fontWeight: 700 }}>{i + 1}</span>
+                      <Crest name={t.name} code={t.code} size={24} dim={!through} />
+                      <span style={{ fontWeight: through ? 500 : 450, color: through ? 'var(--ink)' : 'var(--text-muted)', fontSize: 15 }}>{t.name}</span>
+                    </span>
+                  </td>
+                  {cols.map(c => (
+                    <td key={c.k} style={{ textAlign: 'center', padding: `${rowPad} 6px`, fontWeight: c.k === 'pts' ? 700 : 450, fontSize: 15, color: c.k === 'pts' ? 'var(--ink)' : 'var(--text-muted)' }}>
+                      {c.k === 'gd' ? (t.gd > 0 ? '+' + t.gd : t.gd) : t[c.k]}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </Card>
+    );
+  }
+
+  function Groups({ density, layout = 'Cards' }) {
+    const [sortKey, setSortKey] = useState('pts');
+    const g = window.WC.groups;
+    const letters = Object.keys(g);
+    const sortControl = (
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: 'var(--white)', border: '1px solid var(--border-hairline)', borderRadius: 999, padding: 6 }}>
+        <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)', paddingLeft: 12 }}>Sort by</span>
+        {[['pts', 'Points'], ['gd', 'Goal diff'], ['gf', 'Goals for']].map(([k, label]) => (
+          <button key={k} onClick={() => setSortKey(k)} style={{
+            font: 'inherit', cursor: 'pointer', border: 'none', borderRadius: 999, padding: '8px 16px',
+            fontSize: 14, fontWeight: 500, letterSpacing: '-0.2px',
+            background: sortKey === k ? 'var(--ink)' : 'transparent',
+            color: sortKey === k ? 'var(--canvas)' : 'var(--ink)', transition: 'all 140ms ease',
+          }}>{label}</button>
+        ))}
+      </div>
+    );
+    return (
+      <section>
+        <SectionHead eyebrow="Group stage" title="All twelve groups, settled."
+          sub="Three rounds played. The top two of every group march on; the rest go home."
+          aside={sortControl} />
+        {layout === 'Table'
+          ? <GroupsTable g={g} letters={letters} sortKey={sortKey} density={density} />
+          : (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))', gap: 24 }}>
+              {letters.map(L => <GroupCard key={L} letter={L} teams={g[L]} sortKey={sortKey} density={density} />)}
+            </div>
+          )}
+      </section>
+    );
+  }
+
+  /* Table layout direction — one continuous full-width standings sheet. */
+  function GroupsTable({ g, letters, sortKey, density }) {
+    const rowPad = density === 'compact' ? '9px' : density === 'comfy' ? '17px' : '13px';
+    const cols = [['played', 'P'], ['won', 'W'], ['drawn', 'D'], ['lost', 'L'], ['gf', 'GF'], ['ga', 'GA'], ['gd', 'GD'], ['pts', 'Pts']];
+    return (
+      <Card pad={0} style={{ overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontVariantNumeric: 'tabular-nums' }}>
+          {letters.map(L => {
+            const rows = [...g[L]].sort(SORTS[sortKey]);
+            return (
+              <tbody key={L}>
+                <tr style={{ background: 'var(--cream-lifted)', borderTop: '1px solid var(--border-hairline)' }}>
+                  <td colSpan={2} style={{ padding: '12px 28px' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--ink)', color: 'var(--canvas)', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 13 }}>{L}</span>
+                      <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Group {L}</span>
+                    </span>
+                  </td>
+                  {cols.map(([k, label]) => <td key={k} style={{ textAlign: 'center', padding: '12px 8px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.3px', color: 'var(--text-whisper)', width: 46 }}>{label}</td>)}
+                </tr>
+                {rows.map((t, i) => {
+                  const through = i < 2;
+                  return (
+                    <tr key={t.name} style={{ borderTop: '1px solid var(--border-hairline)', background: through ? 'rgba(20,20,19,0.015)' : 'transparent' }}>
+                      <td style={{ width: 30, padding: `${rowPad} 0 ${rowPad} 28px`, color: 'var(--text-whisper)', fontWeight: 700, fontSize: 13 }}>{i + 1}</td>
+                      <td style={{ padding: `${rowPad} 16px`, position: 'relative' }}>
+                        {through && <span style={{ position: 'absolute', left: 16, top: 8, bottom: 8, width: 3, borderRadius: 3, background: 'var(--ink)' }} />}
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12, paddingLeft: through ? 12 : 0 }}>
+                          <Crest name={t.name} code={t.code} size={26} dim={!through} />
+                          <span style={{ fontWeight: through ? 500 : 450, color: through ? 'var(--ink)' : 'var(--text-muted)', fontSize: 16 }}>{t.name}</span>
+                          {i === 0 && <StatusChip status="advanced" />}
+                        </span>
+                      </td>
+                      {cols.map(([k]) => (
+                        <td key={k} style={{ textAlign: 'center', padding: `${rowPad} 8px`, fontWeight: k === 'pts' ? 700 : 450, fontSize: 16, color: k === 'pts' ? 'var(--ink)' : 'var(--text-muted)' }}>
+                          {k === 'gd' ? (t.gd > 0 ? '+' + t.gd : t.gd) : t[k]}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            );
+          })}
+        </table>
+      </Card>
+    );
+  }
+
+  /* -------------------------------------------------------------- FIXTURES */
+  const ROUND_LABELS = { r16: 'Round of 16', qf: 'Quarter-finals', sf: 'Semi-finals', third: 'Third place', final: 'Final' };
+  function Fixtures({ density }) {
+    const K = window.WC.knockout;
+    const order = ['r16', 'qf', 'sf', 'final'];
+    const [round, setRound] = useState('qf');
+    const list = K[round] || [];
+    const rowPad = density === 'compact' ? '14px' : density === 'comfy' ? '26px' : '20px';
+    return (
+      <section>
+        <SectionHead eyebrow="Match results" title="The knockout fixtures."
+          sub="Every tie from the Round of 16 to the final. Group results live under Groups." />
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 28 }}>
+          {order.map(r => (
+            <button key={r} onClick={() => setRound(r)} style={{
+              font: 'inherit', cursor: 'pointer', borderRadius: 999, padding: '10px 22px', fontSize: 15, fontWeight: 500,
+              border: `1.5px solid ${round === r ? 'var(--ink)' : 'var(--border-hairline)'}`,
+              background: round === r ? 'var(--ink)' : 'var(--white)', color: round === r ? 'var(--canvas)' : 'var(--ink)',
+              transition: 'all 140ms ease',
+            }}>{ROUND_LABELS[r]}</button>
+          ))}
+        </div>
+        <Card pad={0} style={{ overflow: 'hidden' }}>
+          {list.map((m, i) => {
+            const homeWin = m.played && m.score1 > m.score2;
+            const awayWin = m.played && m.score2 > m.score1;
+            return (
+              <div key={m.id} style={{
+                display: 'grid', gridTemplateColumns: '88px 1fr auto 1fr', alignItems: 'center', gap: 16,
+                padding: `${rowPad} 28px`, borderTop: i ? '1px solid var(--border-hairline)' : 'none',
+              }} className="wc-fixture-row">
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.3px' }}>{m.date}<br /><span style={{ color: 'var(--text-whisper)', fontWeight: 450 }}>{m.time}</span></span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12, justifyContent: 'flex-end', textAlign: 'right' }}>
+                  <span style={{ fontWeight: homeWin ? 500 : 450, color: m.played && !homeWin ? 'var(--text-muted)' : 'var(--ink)', fontSize: 17 }}>{m.home}</span>
+                  <Crest name={m.home} code={window.WC.CODE[m.home]} size={34} dim={m.played && !homeWin} />
+                </span>
+                <span style={{ textAlign: 'center', minWidth: 96 }}>
+                  {m.played
+                    ? <Score a={m.score1} b={m.score2} pens={m.pens} />
+                    : <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--signal-orange)', padding: '6px 16px', border: '1px solid var(--border-hairline)', borderRadius: 999 }}>{m.time}</span>}
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 12 }}>
+                  <Crest name={m.away} code={window.WC.CODE[m.away]} size={34} dim={m.played && !awayWin} />
+                  <span style={{ fontWeight: awayWin ? 500 : 450, color: m.played && !awayWin ? 'var(--text-muted)' : 'var(--ink)', fontSize: 17 }}>{m.away}</span>
+                </span>
+              </div>
+            );
+          })}
+        </Card>
+      </section>
+    );
+  }
+
+  /* ------------------------------------------------------------ SWEEPSTAKES */
+  function Sweepstakes({ density }) {
+    const WC = window.WC;
+    const enriched = WC.entries.map(e => {
+      const f = WC.teamFate[e.team] || { alive: false, out: 'Group stage' };
+      return { ...e, ...f };
+    });
+    const depth = { 'Quarter-final': 4, 'Round of 16': 3, 'Group stage': 1 };
+    enriched.sort((a, b) => (b.alive - a.alive) || ((b.alive ? 0 : depth[b.out] || 0) - (a.alive ? 0 : depth[a.out] || 0)) || a.name.localeCompare(b.name));
+    const aliveCount = enriched.filter(e => e.alive).length;
+    return (
+      <section>
+        <SectionHead eyebrow="The office sweepstakes" title="Who's still standing?"
+          sub={`${WC.entries.length} colleagues, one nation each, drawn from the hat. ${aliveCount} are still in the running.`}
+          aside={
+            <div style={{ display: 'flex', gap: 12 }}>
+              <Stat n={aliveCount} label="Still in" accent />
+              <Stat n={WC.entries.length - aliveCount} label="Knocked out" />
+            </div>
+          } />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+          {enriched.map(e => <EntryCard key={e.name} e={e} density={density} />)}
+        </div>
+      </section>
+    );
+  }
+  function Stat({ n, label, accent }) {
+    return (
+      <div style={{ textAlign: 'center', padding: '10px 20px', borderRadius: 'var(--radius-btn)', background: accent ? 'var(--ink)' : 'var(--white)', border: '1px solid', borderColor: accent ? 'var(--ink)' : 'var(--border-hairline)', color: accent ? 'var(--canvas)' : 'var(--ink)' }}>
+        <div style={{ fontSize: 30, fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1 }}>{n}</div>
+        <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.3px', textTransform: 'uppercase', marginTop: 4, opacity: 0.7 }}>{label}</div>
+      </div>
+    );
+  }
+  function EntryCard({ e, density }) {
+    const pad = density === 'compact' ? 16 : density === 'comfy' ? 28 : 20;
+    return (
+      <div style={{
+        background: 'var(--white)', border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius-btn)',
+        padding: pad, display: 'flex', alignItems: 'center', gap: 14,
+        opacity: e.alive ? 1 : 0.78, transition: 'transform 140ms ease, box-shadow 140ms ease',
+      }}
+        onMouseEnter={ev => { ev.currentTarget.style.transform = 'translateY(-2px)'; ev.currentTarget.style.boxShadow = 'var(--shadow-2)'; }}
+        onMouseLeave={ev => { ev.currentTarget.style.transform = 'none'; ev.currentTarget.style.boxShadow = 'none'; }}>
+        <Crest name={e.team} code={window.WC.CODE[e.team]} size={46} dim={!e.alive} />
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div style={{ fontWeight: 500, letterSpacing: '-0.2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{e.name}</div>
+          <div style={{ fontSize: 14, color: 'var(--text-muted)' }}>{e.team}</div>
+        </div>
+        {e.alive
+          ? <StatusChip status="advanced" />
+          : <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.3px', textTransform: 'uppercase', color: 'var(--text-whisper)', textAlign: 'right', lineHeight: 1.3 }}>Out<br />{e.out}</span>}
+      </div>
+    );
+  }
+
+  Object.assign(window, { Groups, Fixtures, Sweepstakes });
+})();
+
+</script>
+<script type="text/babel" data-filename="app/tabs2.jsx">
+/* Tabs part 2 — Bracket (animated) + Prize. */
+(function () {
+  const { useState, useRef, useLayoutEffect, useEffect, useCallback } = React;
+  const DS = window.MastercardInspiredDesignSystem_30cec0;
+  const { Eyebrow, Button } = DS;
+  const { Crest, SectionHead, Card } = window;
+
+  const PARENT = {
+    'r16-1': 'qf-1', 'r16-2': 'qf-1', 'r16-3': 'qf-2', 'r16-4': 'qf-2',
+    'r16-5': 'qf-3', 'r16-6': 'qf-3', 'r16-7': 'qf-4', 'r16-8': 'qf-4',
+    'qf-1': 'sf-1', 'qf-2': 'sf-1', 'qf-3': 'sf-2', 'qf-4': 'sf-2',
+    'sf-1': 'final', 'sf-2': 'final',
+  };
+  const ROUND_ORDER = ['r16', 'qf', 'sf', 'final'];
+  const ROUND_TITLES = { r16: 'Round of 16', qf: 'Quarter-finals', sf: 'Semi-finals', final: 'Final' };
+  const winnerOf = (m) => (!m.played ? null : m.score1 > m.score2 ? m.home : m.away);
+
+  function MatchNode({ m, nodeRef, live }) {
+    const w = winnerOf(m);
+    const Side = ({ name, score, isWin, isLoss }) => {
+      const tbd = name === 'TBD' || name.startsWith('Winner');
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '7px 10px', justifyContent: 'space-between' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, minWidth: 0, flex: 1 }}>
+            {tbd
+              ? <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--bone)', flex: 'none', boxShadow: 'inset 0 0 0 1px var(--border-hairline)' }} />
+              : <Crest name={name} code={window.WC.CODE[name]} size={22} dim={isLoss} />}
+            <span style={{ fontSize: 14, fontWeight: isWin ? 500 : 450, color: tbd ? 'var(--text-whisper)' : isLoss ? 'var(--text-muted)' : 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{tbd ? (name === 'TBD' ? 'To be decided' : name) : name}</span>
+          </span>
+          <span style={{ fontSize: 15, fontWeight: 600, fontVariantNumeric: 'tabular-nums', color: m.played ? (isWin ? 'var(--ink)' : 'var(--text-muted)') : 'var(--text-whisper)' }}>{m.played ? score : ''}</span>
+        </div>
+      );
+    };
+    return (
+      <div ref={nodeRef} data-match={m.id} style={{
+        width: 210, background: 'var(--white)', borderRadius: 14,
+        border: `1.5px solid ${live ? 'var(--signal-orange)' : 'var(--border-hairline)'}`,
+        boxShadow: live ? '0 0 0 4px rgba(243,115,56,0.14), var(--shadow-2)' : 'var(--shadow-1)',
+        overflow: 'hidden', transition: 'border-color 300ms ease, box-shadow 300ms ease',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 10px', borderBottom: '1px solid var(--border-hairline)', background: 'var(--cream-lifted)' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{m.date}</span>
+          {m.pens && <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-muted)' }}>{m.pens} pens</span>}
+          {!m.played && <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--signal-orange)' }}>{m.time}</span>}
+        </div>
+        <Side name={m.home} score={m.score1} isWin={w === m.home} isLoss={m.played && w !== m.home} />
+        <div style={{ height: 1, background: 'var(--border-hairline)', margin: '0 10px' }} />
+        <Side name={m.away} score={m.score2} isWin={w === m.away} isLoss={m.played && w !== m.away} />
+      </div>
+    );
+  }
+
+  function Bracket() {
+    const K = window.WC.knockout;
+    const wrapRef = useRef(null);
+    const svgRef = useRef(null);
+    const nodes = useRef({});
+    const [paths, setPaths] = useState([]);
+    const [dims, setDims] = useState({ w: 0, h: 0 });
+    const [liveRound, setLiveRound] = useState(-1); // -1 = all static
+    const playingRef = useRef(false);
+
+    const setNode = useCallback((id) => (el) => { if (el) nodes.current[id] = el; }, []);
+
+    const measure = useCallback(() => {
+      const wrap = wrapRef.current; if (!wrap) return;
+      const wr = wrap.getBoundingClientRect();
+      const out = [];
+      for (const [child, parent] of Object.entries(PARENT)) {
+        const c = nodes.current[child], p = nodes.current[parent];
+        if (!c || !p) continue;
+        const cr = c.getBoundingClientRect(), pr = p.getBoundingClientRect();
+        const x1 = cr.right - wr.left, y1 = cr.top - wr.top + cr.height / 2;
+        const x2 = pr.left - wr.left, y2 = pr.top - wr.top + pr.height / 2;
+        const mx = x1 + (x2 - x1) / 2;
+        const round = child.split('-')[0];
+        out.push({ key: child, d: `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`, round });
+      }
+      setDims({ w: wrap.scrollWidth, h: wrap.scrollHeight });
+      setPaths(out);
+    }, []);
+
+    useLayoutEffect(() => { measure(); }, [measure]);
+    useEffect(() => {
+      const t = setTimeout(measure, 350); // after flags/fonts settle
+      window.addEventListener('resize', measure);
+      return () => { clearTimeout(t); window.removeEventListener('resize', measure); };
+    }, [measure]);
+
+    const play = useCallback(() => {
+      if (playingRef.current) return;
+      playingRef.current = true;
+      setLiveRound(0);
+      let r = 0;
+      const tick = () => {
+        r += 1;
+        if (r >= ROUND_ORDER.length) { setLiveRound(-1); playingRef.current = false; return; }
+        setLiveRound(r);
+        setTimeout(tick, 900);
+      };
+      setTimeout(tick, 900);
+    }, []);
+
+    const roundIndex = (id) => ROUND_ORDER.indexOf(id.split('-')[0]);
+
+    return (
+      <section>
+        <SectionHead eyebrow="Knockout bracket" title="The road to the final."
+          sub="Sixteen became eight. Watch the run unfold, then follow it to a champion."
+          aside={<Button variant="primary" onClick={play}>▶ Play the run</Button>} />
+
+        <div style={{ overflowX: 'auto', paddingBottom: 12 }}>
+          <div ref={wrapRef} style={{ position: 'relative', minWidth: 1000 }}>
+            <svg ref={svgRef} width={dims.w} height={dims.h} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'visible' }}>
+              {paths.map(p => {
+                const active = liveRound === -1 || roundIndex(p.key) < liveRound;
+                const live = roundIndex(p.key) === liveRound;
+                return <path key={p.key} d={p.d} fill="none"
+                  stroke={live ? 'var(--signal-orange)' : 'var(--accent-orbit)'}
+                  strokeWidth={live ? 2.5 : 1.5}
+                  strokeLinecap="round"
+                  style={{ opacity: active ? 1 : 0.35, transition: 'opacity 400ms ease, stroke 300ms ease' }} />;
+              })}
+            </svg>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 210px)', gap: 56, position: 'relative' }}>
+              {ROUND_ORDER.map((rk, col) => (
+                <div key={rk} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', gap: col === 0 ? 16 : 0 }}>
+                  <div style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{ROUND_TITLES[rk]}</div>
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-around', gap: 16 }}>
+                    {K[rk].map(m => (
+                      <MatchNode key={m.id} m={m} nodeRef={setNode(m.id)} live={liveRound === col} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* third place */}
+        <div style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Third-place play-off</span>
+          <span style={{ fontSize: 15, color: 'var(--text-muted)' }}>{K.third[0].date} · {K.third[0].time} — qualifiers to be confirmed.</span>
+        </div>
+      </section>
+    );
+  }
+
+  /* ----------------------------------------------------------------- PRIZE */
+  function Prize() {
+    const P = window.WC.prize;
+    const fmt = (n) => P.currency + n.toLocaleString();
+    return (
+      <section>
+        <SectionHead eyebrow="The pot" title="What you're playing for."
+          sub={`Everyone put in ${fmt(P.entryFee)}. Winner takes the lion's share — the rest is settled when the whistle blows on the final.`} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.4fr)', gap: 24, alignItems: 'stretch' }} className="wc-prize-grid">
+          {/* pot hero */}
+          <div style={{ position: 'relative', overflow: 'hidden', background: 'var(--ink)', color: 'var(--canvas)', borderRadius: 'var(--radius-stadium)', padding: 40, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 320 }}>
+            <div className="mc-ghost" style={{ position: 'absolute', right: -20, bottom: -50, color: 'rgba(255,255,255,0.06)', fontSize: 200, lineHeight: 1 }}>£</div>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', color: 'var(--signal-orange-light)' }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--signal-orange)' }} />Total pot
+            </span>
+            <div style={{ position: 'relative' }}>
+              <div style={{ fontSize: 'clamp(60px,9vw,92px)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1 }}>{fmt(P.pot)}</div>
+              <div style={{ marginTop: 14, display: 'flex', gap: 28 }}>
+                <KV k="Players" v={P.players} />
+                <KV k="Entry" v={fmt(P.entryFee)} />
+              </div>
+            </div>
+          </div>
+
+          {/* splits */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px,1fr))', gap: 16 }}>
+            {P.splits.map((s, i) => (
+              <div key={s.place} style={{ background: 'var(--white)', border: '1px solid var(--border-hairline)', borderRadius: 'var(--radius-btn)', padding: 28, display: 'flex', flexDirection: 'column', gap: 6, boxShadow: i === 0 ? 'var(--shadow-2)' : 'none' }}>
+                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{s.place}</span>
+                <span style={{ fontSize: 38, fontWeight: 500, letterSpacing: '-0.03em', lineHeight: 1 }}>{fmt(Math.round(P.pot * s.pct / 100))}</span>
+                <span style={{ fontSize: 14, color: 'var(--text-muted)' }}>{s.pct}% · {s.note}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+  function KV({ k, v }) {
+    return (
+      <div>
+        <div style={{ fontSize: 13, letterSpacing: '0.4px', textTransform: 'uppercase', fontWeight: 700, color: 'rgba(243,240,238,0.5)' }}>{k}</div>
+        <div style={{ fontSize: 24, fontWeight: 500, letterSpacing: '-0.02em' }}>{v}</div>
+      </div>
+    );
+  }
+
+  Object.assign(window, { Bracket, Prize });
+})();
+
+</script>
+<script type="text/babel" data-filename="app/app.jsx">
+/* App shell — floating pill nav, tab routing, tweaks, footer. */
+(function () {
+  const { useState } = React;
+  const DS = window.MastercardInspiredDesignSystem_30cec0;
+  const { Footer } = DS;
+  const { useTweaks, TweaksPanel, TweakSection, TweakRadio, TweakToggle } = window;
+  const { Hero, Sweepstakes, Groups, Fixtures, Bracket, Prize } = window;
+
+  const TABS = ['Today', 'Sweepstakes', 'Groups', 'Fixtures', 'Bracket', 'Prize'];
+
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "heroLayout": "Featured",
+    "groupsLayout": "Cards",
+    "density": "regular",
+    "arcs": true
+  }/*EDITMODE-END*/;
+
+  function Brand({ onClick }) {
+    return (
+      <button onClick={onClick} style={{ display: 'inline-flex', alignItems: 'center', gap: 12, background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', padding: 0, flex: 'none' }}>
+        <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--ink)', color: 'var(--canvas)', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 16, letterSpacing: '-0.02em' }}>26</span>
+        <span style={{ textAlign: 'left', lineHeight: 1.15, whiteSpace: 'nowrap' }}>
+          <span style={{ display: 'block', fontWeight: 600, fontSize: 15, letterSpacing: '-0.02em' }}>World Cup 2026</span>
+          <span style={{ display: 'block', fontSize: 12, color: 'var(--text-muted)', fontWeight: 500, letterSpacing: '0.2px' }}>Office sweepstakes</span>
+        </span>
+      </button>
+    );
+  }
+
+  function Nav({ tab, setTab }) {
+    return (
+      <div style={{ position: 'sticky', top: 16, zIndex: 30, display: 'flex', justifyContent: 'center', padding: '0 16px', marginBottom: 40 }}>
+        <nav style={{
+          display: 'flex', alignItems: 'center', gap: 20, maxWidth: 1180, width: '100%',
+          background: 'var(--white)', borderRadius: 999, boxShadow: 'var(--shadow-2)',
+          border: '1px solid var(--border-hairline)', padding: '10px 12px 10px 20px',
+        }}>
+          <Brand onClick={() => setTab('Today')} />
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', gap: 4, overflowX: 'auto', scrollbarWidth: 'none' }} className="wc-navtabs">
+            {TABS.map(t => {
+              const active = tab === t;
+              return (
+                <button key={t} onClick={() => setTab(t)} style={{
+                  font: 'inherit', cursor: 'pointer', border: 'none', borderRadius: 999, whiteSpace: 'nowrap',
+                  padding: '10px 18px', fontSize: 15, fontWeight: 500, letterSpacing: '-0.3px',
+                  background: active ? 'var(--ink)' : 'transparent', color: active ? 'var(--canvas)' : 'var(--ink)',
+                  transition: 'background 160ms ease, color 160ms ease, opacity 160ms ease',
+                }}
+                  onMouseEnter={e => { if (!active) e.currentTarget.style.opacity = 0.6; }}
+                  onMouseLeave={e => { e.currentTarget.style.opacity = 1; }}>{t}</button>
+              );
+            })}
+          </div>
+        </nav>
+      </div>
+    );
+  }
+
+  function App() {
+    const [tab, setTab] = useState('Today');
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+    const view = (() => {
+      switch (tab) {
+        case 'Today': return <Hero onOpenBracket={() => setTab('Bracket')} layout={t.heroLayout} arcs={t.arcs} />;
+        case 'Sweepstakes': return <Sweepstakes density={t.density} />;
+        case 'Groups': return <Groups density={t.density} layout={t.groupsLayout} />;
+        case 'Fixtures': return <Fixtures density={t.density} />;
+        case 'Bracket': return <Bracket arcs={t.arcs} />;
+        case 'Prize': return <Prize />;
+        default: return null;
+      }
+    })();
+
+    const footerCols = [
+      { title: 'Tournament', links: [{ label: 'Schedule' }, { label: 'Venues' }, { label: 'All 48 teams' }] },
+      { title: 'Sweepstakes', links: [{ label: 'House rules' }, { label: 'Entries' }, { label: 'Prize pot' }] },
+      { title: 'The office', links: [{ label: 'Slack channel', external: true }, { label: 'Shared calendar', external: true }] },
+    ];
+
+    return (
+      <div data-app style={{ minHeight: '100vh', paddingTop: 16 }}>
+        <Nav tab={tab} setTab={setTab} />
+        <main className="mc-container" style={{ paddingBottom: 100, maxWidth: 1180 }}>
+          {view}
+        </main>
+        <Footer headline="May the best desk win." columns={footerCols} country="England · English" />
+
+        <TweaksPanel>
+          <TweakSection label="Layout directions" />
+          <TweakRadio label="Today" value={t.heroLayout} options={['Featured', 'Even slate']} onChange={v => setTweak('heroLayout', v)} />
+          <TweakRadio label="Standings" value={t.groupsLayout} options={['Cards', 'Table']} onChange={v => setTweak('groupsLayout', v)} />
+          <TweakSection label="Display" />
+          <TweakRadio label="Density" value={t.density} options={['compact', 'regular', 'comfy']} onChange={v => setTweak('density', v)} />
+          <TweakToggle label="Orbital arcs" value={t.arcs} onChange={v => setTweak('arcs', v)} />
+        </TweaksPanel>
+      </div>
+    );
+  }
+
+  window.WCApp = App;
+})();
+
+</script>
+<script type="text/babel">
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(React.createElement(window.WCApp));
+  setTimeout(() => {
+    const l = document.getElementById('wc-loading');
+    if (l) { l.style.opacity = '0'; setTimeout(() => l.remove(), 450); }
+  }, 600);
+</script>
+
+<style id="__om-edit-overrides"></style>
+</body>
+</html>
