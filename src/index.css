@@ -486,6 +486,18 @@ html, body { height: 100%; background: var(--canvas); color: var(--ink); font-fa
   /* phone: 1st place + Runner-up share one row below the match, side by side */
   .ko-prize-pair { display: flex; gap: 0.75rem; flex: 0 0 100%; }
   .ko-prize-pair .ko-prize-card { flex: 1 1 0; min-width: 0; }
+
+  /* Bracket: scroll horizontally on phone instead of widening the page */
+  .bracket-bleed { width: 100%; padding-right: 0; }
+  .bracket-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    /* hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .bracket-scroll::-webkit-scrollbar { display: none; }
 }
 
 .team-colleague { font-size: 0.68rem; color: #282C20; font-weight: 500; margin-top: 1px; text-align: left; }
