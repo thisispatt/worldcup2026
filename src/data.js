@@ -205,8 +205,8 @@ export const fixtures = [
   { id: 36, group: "F", date: "26 Jun", time: "00:00", home: "Tunisia",     away: "Netherlands", score1: null, score2: null, played: false },
 
   // ── GROUP G ──────────────────────────────────────────────
-  { id: 37, group: "G", date: "15 Jun", time: "20:00", home: "Belgium",     away: "Egypt",       score1: null, score2: null, played: false },
-  { id: 38, group: "G", date: "16 Jun", time: "02:00", home: "Iran",        away: "New Zealand", score1: null, score2: null, played: false },
+  { id: 37, group: "G", date: "15 Jun", time: "20:00", home: "Belgium",     away: "Egypt",       score1: 1, score2: 1, played: true },
+  { id: 38, group: "G", date: "16 Jun", time: "02:00", home: "Iran",        away: "New Zealand", score1: 2, score2: 2, played: true },
   { id: 39, group: "G", date: "21 Jun", time: "20:00", home: "Belgium",     away: "Iran",        score1: null, score2: null, played: false },
   { id: 40, group: "G", date: "22 Jun", time: "02:00", home: "New Zealand", away: "Egypt",       score1: null, score2: null, played: false },
   { id: 41, group: "G", date: "27 Jun", time: "04:00", home: "Egypt",       away: "Iran",        score1: null, score2: null, played: false },
@@ -214,7 +214,7 @@ export const fixtures = [
 
   // ── GROUP H ──────────────────────────────────────────────
   { id: 43, group: "H", date: "15 Jun", time: "17:00", home: "Spain",        away: "Cape Verde",   score1: 0, score2: 0, played: true },
-  { id: 44, group: "H", date: "15 Jun", time: "23:00", home: "Saudi Arabia", away: "Uruguay",      score1: null, score2: null, played: false },
+  { id: 44, group: "H", date: "15 Jun", time: "23:00", home: "Saudi Arabia", away: "Uruguay",      score1: 1, score2: 1, played: true },
   { id: 45, group: "H", date: "21 Jun", time: "17:00", home: "Spain",        away: "Saudi Arabia", score1: null, score2: null, played: false },
   { id: 46, group: "H", date: "21 Jun", time: "23:00", home: "Uruguay",      away: "Cape Verde",   score1: null, score2: null, played: false },
   { id: 47, group: "H", date: "27 Jun", time: "01:00", home: "Cape Verde",   away: "Saudi Arabia", score1: null, score2: null, played: false },
