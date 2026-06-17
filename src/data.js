@@ -222,15 +222,15 @@ export const fixtures = [
 
   // ── GROUP I ──────────────────────────────────────────────
   { id: 49, group: "I", date: "16 Jun", time: "20:00", home: "France",  away: "Senegal", score1: 3, score2: 1, played: true },
-  { id: 50, group: "I", date: "16 Jun", time: "23:00", home: "Iraq",    away: "Norway",  score1: null, score2: null, played: false },
+  { id: 50, group: "I", date: "16 Jun", time: "23:00", home: "Iraq",    away: "Norway",  score1: 1, score2: 4, played: true },
   { id: 51, group: "I", date: "22 Jun", time: "22:00", home: "France",  away: "Iraq",    score1: null, score2: null, played: false },
   { id: 52, group: "I", date: "23 Jun", time: "01:00", home: "Norway",  away: "Senegal", score1: null, score2: null, played: false },
   { id: 53, group: "I", date: "26 Jun", time: "20:00", home: "Norway",  away: "France",  score1: null, score2: null, played: false },
   { id: 54, group: "I", date: "26 Jun", time: "20:00", home: "Senegal", away: "Iraq",    score1: null, score2: null, played: false },
 
   // ── GROUP J ──────────────────────────────────────────────
-  { id: 55, group: "J", date: "17 Jun", time: "02:00", home: "Argentina", away: "Algeria",  score1: null, score2: null, played: false },
-  { id: 56, group: "J", date: "17 Jun", time: "05:00", home: "Austria",   away: "Jordan",   score1: null, score2: null, played: false },
+  { id: 55, group: "J", date: "17 Jun", time: "02:00", home: "Argentina", away: "Algeria",  score1: 3, score2: 0, played: true },
+  { id: 56, group: "J", date: "17 Jun", time: "05:00", home: "Austria",   away: "Jordan",   score1: 3, score2: 1, played: true },
   { id: 57, group: "J", date: "22 Jun", time: "18:00", home: "Argentina", away: "Austria",  score1: null, score2: null, played: false },
   { id: 58, group: "J", date: "23 Jun", time: "04:00", home: "Jordan",    away: "Algeria",  score1: null, score2: null, played: false },
   { id: 59, group: "J", date: "28 Jun", time: "03:00", home: "Algeria",   away: "Austria",  score1: null, score2: null, played: false },
