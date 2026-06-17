@@ -245,7 +245,7 @@ export const fixtures = [
   { id: 66, group: "K", date: "28 Jun", time: "00:30", home: "DR Congo",   away: "Uzbekistan", score1: null, score2: null, played: false },
 
   // ── GROUP L ──────────────────────────────────────────────
-  { id: 67, group: "L", date: "17 Jun", time: "21:00", home: "England",  away: "Croatia", score1: null, score2: null, played: false },
+  { id: 67, group: "L", date: "17 Jun", time: "21:00", home: "England",  away: "Croatia", score1: 4, score2: 2, played: true },
   { id: 68, group: "L", date: "18 Jun", time: "00:00", home: "Ghana",    away: "Panama",  score1: null, score2: null, played: false },
   { id: 69, group: "L", date: "23 Jun", time: "21:00", home: "England",  away: "Ghana",   score1: null, score2: null, played: false },
   { id: 70, group: "L", date: "24 Jun", time: "00:00", home: "Panama",   away: "Croatia", score1: null, score2: null, played: false },
