@@ -160,7 +160,7 @@ export const fixtures = [
   { id: 1,  group: "A", date: "11 Jun", time: "20:00", home: "Mexico",       away: "South Africa",        score1: 2, score2: 0, played: true },
   { id: 2,  group: "A", date: "12 Jun", time: "03:00", home: "South Korea",  away: "Czechia",             score1: 2, score2: 1, played: true },
   { id: 3,  group: "A", date: "18 Jun", time: "17:00", home: "Czechia",      away: "South Africa",        score1: 1, score2: 1, played: true },
-  { id: 4,  group: "A", date: "19 Jun", time: "02:00", home: "Mexico",       away: "South Korea",         score1: null, score2: null, played: false },
+  { id: 4,  group: "A", date: "19 Jun", time: "02:00", home: "Mexico",       away: "South Korea",         score1: 1, score2: 0, played: true },
   { id: 5,  group: "A", date: "25 Jun", time: "02:00", home: "Czechia",      away: "Mexico",              score1: null, score2: null, played: false },
   { id: 6,  group: "A", date: "25 Jun", time: "02:00", home: "South Africa", away: "South Korea",         score1: null, score2: null, played: false },
 
@@ -168,7 +168,7 @@ export const fixtures = [
   { id: 7,  group: "B", date: "12 Jun", time: "20:00", home: "Canada",               away: "Bosnia-Herzegovina", score1: 1, score2: 1, played: true },
   { id: 8,  group: "B", date: "13 Jun", time: "20:00", home: "Qatar",                away: "Switzerland",          score1: 1, score2: 1, played: true },
   { id: 9,  group: "B", date: "18 Jun", time: "20:00", home: "Switzerland",          away: "Bosnia-Herzegovina", score1: 4, score2: 1, played: true },
-  { id: 10, group: "B", date: "18 Jun", time: "23:00", home: "Canada",               away: "Qatar",                score1: null, score2: null, played: false },
+  { id: 10, group: "B", date: "18 Jun", time: "23:00", home: "Canada",               away: "Qatar",                score1: 6, score2: 0, played: true },
   { id: 11, group: "B", date: "24 Jun", time: "20:00", home: "Switzerland",          away: "Canada",               score1: null, score2: null, played: false },
   { id: 12, group: "B", date: "24 Jun", time: "20:00", home: "Bosnia-Herzegovina", away: "Qatar",                score1: null, score2: null, played: false },
 
