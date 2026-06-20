@@ -175,16 +175,16 @@ export const fixtures = [
   // ── GROUP C ──────────────────────────────────────────────
   { id: 13, group: "C", date: "13 Jun", time: "23:00", home: "Brazil",   away: "Morocco",  score1: 1, score2: 1, played: true },
   { id: 14, group: "C", date: "14 Jun", time: "02:00", home: "Haiti",    away: "Scotland", score1: 0, score2: 1, played: true },
-  { id: 15, group: "C", date: "19 Jun", time: "23:00", home: "Scotland", away: "Morocco",  score1: null, score2: null, played: false },
-  { id: 16, group: "C", date: "20 Jun", time: "01:30", home: "Brazil",   away: "Haiti",    score1: null, score2: null, played: false },
+  { id: 15, group: "C", date: "19 Jun", time: "23:00", home: "Scotland", away: "Morocco",  score1: 0, score2: 1, played: true },
+  { id: 16, group: "C", date: "20 Jun", time: "01:30", home: "Brazil",   away: "Haiti",    score1: 3, score2: 0, played: true },
   { id: 17, group: "C", date: "24 Jun", time: "23:00", home: "Scotland", away: "Brazil",   score1: null, score2: null, played: false },
   { id: 18, group: "C", date: "24 Jun", time: "23:00", home: "Morocco",  away: "Haiti",    score1: null, score2: null, played: false },
 
   // ── GROUP D ──────────────────────────────────────────────
   { id: 19, group: "D", date: "13 Jun", time: "02:00", home: "United States", away: "Paraguay",  score1: 4, score2: 1, played: true },
   { id: 20, group: "D", date: "14 Jun", time: "05:00", home: "Australia",     away: "Türkiye",   score1: 2, score2: 0, played: true },
-  { id: 21, group: "D", date: "19 Jun", time: "20:00", home: "United States", away: "Australia", score1: null, score2: null, played: false },
-  { id: 22, group: "D", date: "20 Jun", time: "04:00", home: "Türkiye",       away: "Paraguay",  score1: null, score2: null, played: false },
+  { id: 21, group: "D", date: "19 Jun", time: "20:00", home: "United States", away: "Australia", score1: 2, score2: 0, played: true },
+  { id: 22, group: "D", date: "20 Jun", time: "04:00", home: "Türkiye",       away: "Paraguay",  score1: 0, score2: 1, played: true },
   { id: 23, group: "D", date: "26 Jun", time: "03:00", home: "Türkiye",       away: "United States", score1: null, score2: null, played: false },
   { id: 24, group: "D", date: "26 Jun", time: "03:00", home: "Paraguay",      away: "Australia", score1: null, score2: null, played: false },
 
