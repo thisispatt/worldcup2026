@@ -193,8 +193,8 @@ export const fixtures = [
   { id: 26, group: "E", date: "15 Jun", time: "00:00", home: "Côte d'Ivoire", away: "Ecuador",     score1: 1, score2: 0, played: true },
   { id: 27, group: "E", date: "20 Jun", time: "21:00", home: "Germany",     away: "Côte d'Ivoire", score1: 2, score2: 1, played: true },
   { id: 28, group: "E", date: "21 Jun", time: "01:00", home: "Ecuador",     away: "Curaçao",     score1: 0, score2: 0, played: true },
-  { id: 29, group: "E", date: "25 Jun", time: "21:00", home: "Curaçao",     away: "Côte d'Ivoire", score1: null, score2: null, played: false },
-  { id: 30, group: "E", date: "25 Jun", time: "21:00", home: "Ecuador",     away: "Germany",     score1: null, score2: null, played: false },
+  { id: 29, group: "E", date: "25 Jun", time: "21:00", home: "Curaçao",     away: "Côte d'Ivoire", score1: 0, score2: 2, played: true },
+  { id: 30, group: "E", date: "25 Jun", time: "21:00", home: "Ecuador",     away: "Germany",     score1: 2, score2: 1, played: true },
 
   // ── GROUP F ──────────────────────────────────────────────
   { id: 31, group: "F", date: "14 Jun", time: "21:00", home: "Netherlands", away: "Japan",       score1: 2, score2: 2, played: true },
