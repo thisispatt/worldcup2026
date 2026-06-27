@@ -254,50 +254,71 @@ export const fixtures = [
 
 // ----------------------------------------------------------------
 // KNOCKOUT BRACKET — fill in as teams advance
+//
+//  Enter score1 / score2 as the 90- (or 120-) minute result.
+//  If a tie is level and decided on PENALTIES, also set pens1 / pens2
+//  to the shootout score — the team with more penalties advances.
+//
+//  EXAMPLE (England beat France 1–1, 4–3 on pens):
+//    { id: "qf-1", home: "England", away: "France",
+//      score1: 1, score2: 1, pens1: 4, pens2: 3, date: "...", time: "..." },
 // ----------------------------------------------------------------
+
+// Winner of a knockout tie. When the score is level the result is taken from
+// the penalty shootout (pens1 / pens2). Returns the team name, or null while
+// the tie is still undecided (no score, or level with no shootout entered).
+export function knockoutWinner(m) {
+  if (!m || m.score1 == null || m.score2 == null) return null;
+  if (m.score1 > m.score2) return m.home;
+  if (m.score2 > m.score1) return m.away;
+  if (m.pens1 != null && m.pens2 != null && m.pens1 !== m.pens2)
+    return m.pens1 > m.pens2 ? m.home : m.away;
+  return null;
+}
+
 export const knockout = {
   R32: [
-    { id: "r32-1",  home: "Brazil", away: "Japan", score1: null, score2: null, date: "28 Jun", time: "20:00" },
-    { id: "r32-2",  home: "Germany", away: null, score1: null, score2: null, date: "29 Jun", time: "18:00" },
-    { id: "r32-3",  home: "Netherlands", away: "Morocco", score1: null, score2: null, date: "29 Jun", time: "21:30" },
-    { id: "r32-4",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, date: "30 Jun", time: "02:00" },
-    { id: "r32-5",  home: "France", away: null, score1: null, score2: null, date: "30 Jun", time: "18:00" },
-    { id: "r32-6",  home: "Mexico", away: null, score1: null, score2: null, date: "30 Jun", time: "22:00" },
-    { id: "r32-7",  home: null, away: null, score1: null, score2: null, date: "1 Jul",  time: "02:00" },
-    { id: "r32-8",  home: null, away: null, score1: null, score2: null, date: "1 Jul",  time: "17:00" },
-    { id: "r32-9",  home: null, away: null, score1: null, score2: null, date: "1 Jul",  time: "21:00" },
-    { id: "r32-10", home: null, away: null, score1: null, score2: null, date: "2 Jul",  time: "01:00" },
-    { id: "r32-11", home: null, away: null, score1: null, score2: null, date: "2 Jul",  time: "20:00" },
-    { id: "r32-12", home: null, away: null, score1: null, score2: null, date: "3 Jul",  time: "00:00" },
-    { id: "r32-13", home: null, away: null, score1: null, score2: null, date: "3 Jul",  time: "04:00" },
-    { id: "r32-14", home: null, away: null, score1: null, score2: null, date: "3 Jul",  time: "19:00" },
-    { id: "r32-15", home: null, away: null, score1: null, score2: null, date: "3 Jul",  time: "23:00" },
-    { id: "r32-16", home: null, away: null, score1: null, score2: null, date: "4 Jul",  time: "02:30" },
+    { id: "r32-1",  home: "Brazil", away: "Japan", score1: null, score2: null, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
+    { id: "r32-2",  home: "Germany", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "18:00" },
+    { id: "r32-3",  home: "Netherlands", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "21:30" },
+    { id: "r32-4",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "02:00" },
+    { id: "r32-5",  home: "France", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
+    { id: "r32-6",  home: "Mexico", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "22:00" },
+    { id: "r32-7",  home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
+    { id: "r32-8",  home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
+    { id: "r32-9",  home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
+    { id: "r32-10", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "01:00" },
+    { id: "r32-11", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
+    { id: "r32-12", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
+    { id: "r32-13", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "04:00" },
+    { id: "r32-14", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "19:00" },
+    { id: "r32-15", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "23:00" },
+    { id: "r32-16", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "02:30" },
   ],
   R16: [
-    { id: "r16-1", home: null, away: null, score1: null, score2: null, date: "4 Jul",  time: "18:00" },
-    { id: "r16-2", home: null, away: null, score1: null, score2: null, date: "4 Jul",  time: "22:00" },
-    { id: "r16-3", home: null, away: null, score1: null, score2: null, date: "5 Jul",  time: "21:00" },
-    { id: "r16-4", home: null, away: null, score1: null, score2: null, date: "6 Jul",  time: "01:00" },
-    { id: "r16-5", home: null, away: null, score1: null, score2: null, date: "6 Jul",  time: "20:00" },
-    { id: "r16-6", home: null, away: null, score1: null, score2: null, date: "7 Jul",  time: "01:00" },
-    { id: "r16-7", home: null, away: null, score1: null, score2: null, date: "7 Jul",  time: "17:00" },
-    { id: "r16-8", home: null, away: null, score1: null, score2: null, date: "7 Jul",  time: "21:00" },
+    { id: "r16-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
+    { id: "r16-2", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
+    { id: "r16-3", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "5 Jul",  time: "21:00" },
+    { id: "r16-4", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
+    { id: "r16-5", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "20:00" },
+    { id: "r16-6", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "01:00" },
+    { id: "r16-7", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
+    { id: "r16-8", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
   ],
   QF: [
-    { id: "qf-1", home: null, away: null, score1: null, score2: null, date: "9 Jul",  time: "21:00" },
-    { id: "qf-2", home: null, away: null, score1: null, score2: null, date: "10 Jul", time: "20:00" },
-    { id: "qf-3", home: null, away: null, score1: null, score2: null, date: "11 Jul", time: "22:00" },
-    { id: "qf-4", home: null, away: null, score1: null, score2: null, date: "12 Jul", time: "02:00" },
+    { id: "qf-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "9 Jul",  time: "21:00" },
+    { id: "qf-2", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "10 Jul", time: "20:00" },
+    { id: "qf-3", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "11 Jul", time: "22:00" },
+    { id: "qf-4", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "12 Jul", time: "02:00" },
   ],
   SF: [
-    { id: "sf-1", home: null, away: null, score1: null, score2: null, date: "14 Jul", time: "20:00" },
-    { id: "sf-2", home: null, away: null, score1: null, score2: null, date: "15 Jul", time: "20:00" },
+    { id: "sf-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "14 Jul", time: "20:00" },
+    { id: "sf-2", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "15 Jul", time: "20:00" },
   ],
   Third: [
-    { id: "3rd", home: null, away: null, score1: null, score2: null, date: "18 Jul", time: "22:00" },
+    { id: "3rd", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "18 Jul", time: "22:00" },
   ],
   Final: [
-    { id: "final", home: null, away: null, score1: null, score2: null, date: "19 Jul", time: "20:00" },
+    { id: "final", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "19 Jul", time: "20:00" },
   ],
 };
