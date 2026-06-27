@@ -11,12 +11,12 @@ function getTeamFlag(teamName, groups) {
 }
 
 function MatchNode({ match, groups, entryMap, nodeRef }) {
-  const w = match.played ? (match.score1 > match.score2 ? match.home : match.away) : null;
+  const w = match.score1 != null ? (match.score1 > match.score2 ? match.home : match.away) : null;
 
   const Side = ({ name, flag, colName, score }) => {
     const tbd = !name;
-    const isWin  = match.played && name === w;
-    const isLoss = match.played && name !== w;
+    const isWin  = match.score1 != null && name === w;
+    const isLoss = match.score1 != null && name !== w;
     return (
       <div className={`ko-side${isWin ? " ko-side-win" : isLoss ? " ko-side-loss" : ""}`}>
         <span className="ko-side-left">
@@ -31,7 +31,7 @@ function MatchNode({ match, groups, entryMap, nodeRef }) {
             {colName && <span className="ko-colleague">{colName}</span>}
           </span>
         </span>
-        {match.played && <span className="ko-side-score">{score}</span>}
+        {match.score1 != null && <span className="ko-side-score">{score}</span>}
       </div>
     );
   };
@@ -40,11 +40,11 @@ function MatchNode({ match, groups, entryMap, nodeRef }) {
     <div
       ref={nodeRef}
       data-match={match.id}
-      className={`ko-node${match.played ? " ko-node-played" : ""}${(!match.home && !match.away) ? " ko-node-empty" : ""}`}
+      className={`ko-node${match.score1 != null ? " ko-node-played" : ""}${(!match.home && !match.away) ? " ko-node-empty" : ""}`}
     >
       <div className="ko-node-header">
         <span className="ko-node-date">{match.date || "TBD"}</span>
-        {!match.played && match.time && <span className="ko-node-time">{match.time}</span>}
+        {match.score1 == null && match.time && <span className="ko-node-time">{match.time}</span>}
       </div>
       <Side name={match.home} flag={getTeamFlag(match.home, groups)} colName={match.home ? entryMap[match.home] : null} score={match.score1} />
       <div className="ko-node-divider" />
