@@ -30,6 +30,8 @@
 //  stripped so each match's three outcomes sum to 100%.
 // ============================================================
 
+import { knockoutWinner } from "./data";
+
 export const matchOdds = {
   "Algeria|Argentina": {"Argentina": 0.6782, "Algeria": 0.1248, "draw": 0.197},
   "Algeria|Austria": {"Algeria": 0.2699, "Austria": 0.4394, "draw": 0.2907},
@@ -248,14 +250,14 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
   const rounds = ["R32", "R16", "QF", "SF", "Third", "Final"];
   rounds.forEach(r => {
     (knockout[r] || []).forEach(m => {
-      if (m.score1 == null || m.score2 == null) return;
       if (!m.home || !m.away) return;
-      if (m.score1 === m.score2) return; // tie with no decided winner entered
+      const wName = knockoutWinner(m); // accounts for penalty shootouts
+      if (!wName) return; // tie not yet decided (level with no shootout entered)
       const h = T[m.home], a = T[m.away];
       if (!h || !a) return;
       let winner, loser, wTeam, lTeam, wGoals, lGoals;
-      if (m.score1 > m.score2) { winner = h; wTeam = m.home; loser = a; lTeam = m.away; wGoals = m.score1; lGoals = m.score2; }
-      else                     { winner = a; wTeam = m.away; loser = h; lTeam = m.home; wGoals = m.score2; lGoals = m.score1; }
+      if (wName === m.home) { winner = h; wTeam = m.home; loser = a; lTeam = m.away; wGoals = m.score1; lGoals = m.score2; }
+      else                  { winner = a; wTeam = m.away; loser = h; lTeam = m.home; wGoals = m.score2; lGoals = m.score1; }
       winner.played++; loser.played++; winner.koWins++;
       const gain = knockoutStep(wTeam, r);
       winner.rating += gain;
@@ -273,8 +275,8 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
   // Tournament podium (1st/2nd/3rd). A team that wins a top-3 prize is NOT
   // eligible for the People's Champion, to avoid double-dipping.
   const podiumPlace = {};
-  const decided = m => m && m.score1 != null && m.score2 != null && m.home && m.away && m.score1 !== m.score2;
-  const winnerLoser = m => (m.score1 > m.score2 ? [m.home, m.away] : [m.away, m.home]);
+  const decided = m => !!(m && m.home && m.away && knockoutWinner(m));
+  const winnerLoser = m => (knockoutWinner(m) === m.home ? [m.home, m.away] : [m.away, m.home]);
   const finalM = (knockout.Final || []).find(decided) || (decided(knockout.final) ? knockout.final : null);
   if (finalM) { const [w, l] = winnerLoser(finalM); podiumPlace[w] = "1st"; podiumPlace[l] = "2nd"; }
   const thirdArr = knockout.Third || (knockout["3rd"] ? [knockout["3rd"]] : []);
@@ -339,8 +341,9 @@ export function computeTeamStatus(groups, fixtures, knockout) {
   rounds.forEach(r => (knockout[r] || []).forEach(tie => {
     if (tie.home) koParticipants.add(tie.home);
     if (tie.away) koParticipants.add(tie.away);
-    if (tie.score1 != null && tie.home && tie.away && tie.score1 !== tie.score2) {
-      const homeWin = tie.score1 > tie.score2;
+    const tieWinner = knockoutWinner(tie);
+    if (tieWinner && tie.home && tie.away) {
+      const homeWin = tieWinner === tie.home;
       const loser = homeWin ? tie.away : tie.home;
       if (status[loser] !== undefined) status[loser] = "eliminated";
       if (r === "Final") champion = homeWin ? tie.home : tie.away;
