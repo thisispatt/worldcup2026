@@ -44,7 +44,7 @@ function groupForm(team, fixtures) {
   return (fixtures || [])
     .filter(f => f.group && (f.home === team || f.away === team))
     .map(f => {
-      if (!f.played || f.score1 == null || f.score2 == null) return null;
+      if (f.score1 == null || f.score2 == null) return null;
       const home = f.home === team;
       const gf = home ? f.score1 : f.score2;
       const ga = home ? f.score2 : f.score1;
@@ -58,7 +58,7 @@ function knockoutForm(team, knockout) {
   return KO_ROUNDS.map(([key, label]) => {
     const arr = knockout && knockout[key];
     const tie = Array.isArray(arr) ? arr.find(m => m.home === team || m.away === team) : null;
-    if (!tie || !tie.played || tie.score1 == null || tie.score2 == null || tie.score1 === tie.score2)
+    if (!tie || tie.score1 == null || tie.score2 == null || tie.score1 === tie.score2)
       return { label, res: null };
     const home = tie.home === team;
     const won = home ? tie.score1 > tie.score2 : tie.score2 > tie.score1;
