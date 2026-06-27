@@ -229,7 +229,7 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
 
   // GROUP matches
   fixtures
-    .filter(f => f.played && f.score1 != null && f.score2 != null)
+    .filter(f => f.score1 != null && f.score2 != null)
     .forEach(f => {
       const h = T[f.home], a = T[f.away];
       if (!h || !a) return;
@@ -248,7 +248,7 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
   const rounds = ["R32", "R16", "QF", "SF", "Third", "Final"];
   rounds.forEach(r => {
     (knockout[r] || []).forEach(m => {
-      if (!m.played || m.score1 == null || m.score2 == null) return;
+      if (m.score1 == null || m.score2 == null) return;
       if (!m.home || !m.away) return;
       if (m.score1 === m.score2) return; // tie with no decided winner entered
       const h = T[m.home], a = T[m.away];
@@ -273,7 +273,7 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
   // Tournament podium (1st/2nd/3rd). A team that wins a top-3 prize is NOT
   // eligible for the People's Champion, to avoid double-dipping.
   const podiumPlace = {};
-  const decided = m => m && m.played && m.home && m.away && m.score1 != null && m.score2 != null && m.score1 !== m.score2;
+  const decided = m => m && m.score1 != null && m.score2 != null && m.home && m.away && m.score1 !== m.score2;
   const winnerLoser = m => (m.score1 > m.score2 ? [m.home, m.away] : [m.away, m.home]);
   const finalM = (knockout.Final || []).find(decided) || (decided(knockout.final) ? knockout.final : null);
   if (finalM) { const [w, l] = winnerLoser(finalM); podiumPlace[w] = "1st"; podiumPlace[l] = "2nd"; }
@@ -303,7 +303,7 @@ function groupStandings(groups, groupFx) {
   Object.entries(groups).forEach(([g, o]) =>
     o.teams.forEach(t => { T[t.name] = { name: t.name, group: g, pts: 0, gf: 0, ga: 0 }; }));
   groupFx.forEach(f => {
-    if (!f.played) return;
+    if (f.score1 == null) return;
     const h = T[f.home], a = T[f.away]; if (!h || !a) return;
     h.gf += f.score1; h.ga += f.score2; a.gf += f.score2; a.ga += f.score1;
     if (f.score1 > f.score2) h.pts += 3;
@@ -331,7 +331,7 @@ export function computeTeamStatus(groups, fixtures, knockout) {
   const status = {};
   Object.values(groups).forEach(g => g.teams.forEach(t => { status[t.name] = "active"; }));
   const groupFx = fixtures.filter(f => f.group);
-  const groupComplete = groupFx.length > 0 && groupFx.every(f => f.played);
+  const groupComplete = groupFx.length > 0 && groupFx.every(f => f.score1 != null);
 
   const rounds = ["R32", "R16", "QF", "SF", "Third", "Final"];
   const koParticipants = new Set();
@@ -339,7 +339,7 @@ export function computeTeamStatus(groups, fixtures, knockout) {
   rounds.forEach(r => (knockout[r] || []).forEach(tie => {
     if (tie.home) koParticipants.add(tie.home);
     if (tie.away) koParticipants.add(tie.away);
-    if (tie.played && tie.home && tie.away && tie.score1 !== tie.score2) {
+    if (tie.score1 != null && tie.home && tie.away && tie.score1 !== tie.score2) {
       const homeWin = tie.score1 > tie.score2;
       const loser = homeWin ? tie.away : tie.home;
       if (status[loser] !== undefined) status[loser] = "eliminated";
