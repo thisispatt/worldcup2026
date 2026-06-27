@@ -258,12 +258,12 @@ export const fixtures = [
 // ----------------------------------------------------------------
 export const knockout = {
   R32: [
-    { id: "r32-1",  home: null, away: null, score1: null, score2: null, played: false, date: "28 Jun", time: "20:00" },
-    { id: "r32-2",  home: null, away: null, score1: null, score2: null, played: false, date: "29 Jun", time: "18:00" },
-    { id: "r32-3",  home: null, away: null, score1: null, score2: null, played: false, date: "29 Jun", time: "21:30" },
-    { id: "r32-4",  home: null, away: null, score1: null, score2: null, played: false, date: "30 Jun", time: "02:00" },
-    { id: "r32-5",  home: null, away: null, score1: null, score2: null, played: false, date: "30 Jun", time: "18:00" },
-    { id: "r32-6",  home: null, away: null, score1: null, score2: null, played: false, date: "30 Jun", time: "22:00" },
+    { id: "r32-1",  home: Brazil, away: Japan, score1: null, score2: null, played: false, date: "28 Jun", time: "20:00" },
+    { id: "r32-2",  home: Germany, away: null, score1: null, score2: null, played: false, date: "29 Jun", time: "18:00" },
+    { id: "r32-3",  home: Netherlands, away: Morocco, score1: null, score2: null, played: false, date: "29 Jun", time: "21:30" },
+    { id: "r32-4",  home: Côte d'Ivoire, away: Norway, score1: null, score2: null, played: false, date: "30 Jun", time: "02:00" },
+    { id: "r32-5",  home: France, away: null, score1: null, score2: null, played: false, date: "30 Jun", time: "18:00" },
+    { id: "r32-6",  home: Mexico, away: null, score1: null, score2: null, played: false, date: "30 Jun", time: "22:00" },
     { id: "r32-7",  home: null, away: null, score1: null, score2: null, played: false, date: "1 Jul",  time: "02:00" },
     { id: "r32-8",  home: null, away: null, score1: null, score2: null, played: false, date: "1 Jul",  time: "17:00" },
     { id: "r32-9",  home: null, away: null, score1: null, score2: null, played: false, date: "1 Jul",  time: "21:00" },
