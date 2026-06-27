@@ -133,10 +133,10 @@ export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
           const awayFlag = getTeamFlag(f.away, groups);
           const homeName = entryMap[f.home];
           const awayName = entryMap[f.away];
-          const homeWin = f.played && f.score1 > f.score2;
-          const awayWin = f.played && f.score2 > f.score1;
+          const homeWin = f.score1 != null && f.score1 > f.score2;
+          const awayWin = f.score1 != null && f.score2 > f.score1;
           return (
-            <div key={f.id} className={`fixture-row${f.played ? " fixture-played" : ""}`}>
+            <div key={f.id} className={`fixture-row${f.score1 != null ? " fixture-played" : ""}`}>
               <div className="fixture-meta">
                 <span className="fixture-group">{f.roundLabel}</span>
                 <span className="fixture-date">{f.date}</span>
@@ -145,7 +145,7 @@ export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
               <div className="fixture-match">
                 <div className="fixture-team fixture-home">
                   <div className="fixture-team-info fixture-team-info-home">
-                    <span className={homeWin ? "winner" : f.played ? "fixture-loser" : ""}>{f.home || "TBD"}</span>
+                    <span className={homeWin ? "winner" : f.score1 != null ? "fixture-loser" : ""}>{f.home || "TBD"}</span>
                     {homeName && <span className="fixture-colleague">{homeName}</span>}
                   </div>
                   {homeFlag
@@ -153,7 +153,7 @@ export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
                     : <span className="fixture-flag-tbd" />}
                 </div>
                 <div className="fixture-score">
-                  {f.played
+                  {f.score1 != null
                     ? <span className="score-result">{f.score1} – {f.score2}</span>
                     : <span className="score-vs">{f.time}</span>
                   }
@@ -163,7 +163,7 @@ export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
                     ? <img src={getFlag(awayFlag)} alt={f.away} className="fixture-flag fixture-flag-circle" />
                     : <span className="fixture-flag-tbd" />}
                   <div className="fixture-team-info fixture-team-info-away">
-                    <span className={awayWin ? "winner" : f.played ? "fixture-loser" : ""}>{f.away || "TBD"}</span>
+                    <span className={awayWin ? "winner" : f.score1 != null ? "fixture-loser" : ""}>{f.away || "TBD"}</span>
                     {awayName && <span className="fixture-colleague">{awayName}</span>}
                   </div>
                 </div>
