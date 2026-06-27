@@ -7,7 +7,7 @@ function calcStandings(teams, fixtures) {
     stats[t.name] = { ...t, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0 };
   });
   fixtures
-    .filter(f => f.played && f.score1 !== null && f.score2 !== null)
+    .filter(f => f.score1 !== null && f.score2 !== null)
     .forEach(f => {
       const h = stats[f.home];
       const a = stats[f.away];
