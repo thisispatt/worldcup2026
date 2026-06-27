@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { getFlag } from "../flag";
+import { knockoutWinner } from "../data";
 
 function getTeamFlag(teamName, groups) {
   if (!teamName) return null;
@@ -11,12 +12,13 @@ function getTeamFlag(teamName, groups) {
 }
 
 function MatchNode({ match, groups, entryMap, nodeRef }) {
-  const w = match.score1 != null ? (match.score1 > match.score2 ? match.home : match.away) : null;
+  const w = knockoutWinner(match);
+  const hasPens = match.pens1 != null && match.pens2 != null;
 
-  const Side = ({ name, flag, colName, score }) => {
+  const Side = ({ name, flag, colName, score, pen }) => {
     const tbd = !name;
-    const isWin  = match.score1 != null && name === w;
-    const isLoss = match.score1 != null && name !== w;
+    const isWin  = w != null && name === w;
+    const isLoss = w != null && name !== w;
     return (
       <div className={`ko-side${isWin ? " ko-side-win" : isLoss ? " ko-side-loss" : ""}`}>
         <span className="ko-side-left">
@@ -31,7 +33,11 @@ function MatchNode({ match, groups, entryMap, nodeRef }) {
             {colName && <span className="ko-colleague">{colName}</span>}
           </span>
         </span>
-        {match.score1 != null && <span className="ko-side-score">{score}</span>}
+        {match.score1 != null && (
+          <span className="ko-side-score">
+            {score}{hasPens && <span className="ko-side-pens"> ({pen})</span>}
+          </span>
+        )}
       </div>
     );
   };
@@ -46,9 +52,9 @@ function MatchNode({ match, groups, entryMap, nodeRef }) {
         <span className="ko-node-date">{match.date || "TBD"}</span>
         {match.score1 == null && match.time && <span className="ko-node-time">{match.time}</span>}
       </div>
-      <Side name={match.home} flag={getTeamFlag(match.home, groups)} colName={match.home ? entryMap[match.home] : null} score={match.score1} />
+      <Side name={match.home} flag={getTeamFlag(match.home, groups)} colName={match.home ? entryMap[match.home] : null} score={match.score1} pen={match.pens1} />
       <div className="ko-node-divider" />
-      <Side name={match.away} flag={getTeamFlag(match.away, groups)} colName={match.away ? entryMap[match.away] : null} score={match.score2} />
+      <Side name={match.away} flag={getTeamFlag(match.away, groups)} colName={match.away ? entryMap[match.away] : null} score={match.score2} pen={match.pens2} />
     </div>
   );
 }
