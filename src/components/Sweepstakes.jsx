@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { getFlag, getCrest } from "../flag";
 import { teamInfo } from "../teamInfo";
 import { computeChampionTable } from "../peoplesChampion";
+import { knockoutWinner } from "../data";
 import { Trophy } from "./icons";
 
 const STATUS_CONFIG = {
@@ -58,11 +59,9 @@ function knockoutForm(team, knockout) {
   return KO_ROUNDS.map(([key, label]) => {
     const arr = knockout && knockout[key];
     const tie = Array.isArray(arr) ? arr.find(m => m.home === team || m.away === team) : null;
-    if (!tie || tie.score1 == null || tie.score2 == null || tie.score1 === tie.score2)
-      return { label, res: null };
-    const home = tie.home === team;
-    const won = home ? tie.score1 > tie.score2 : tie.score2 > tie.score1;
-    return { label, res: won ? "W" : "L" };
+    const winner = tie ? knockoutWinner(tie) : null;
+    if (!winner) return { label, res: null };
+    return { label, res: winner === team ? "W" : "L" };
   });
 }
 
