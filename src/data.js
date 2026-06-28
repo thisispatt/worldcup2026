@@ -278,7 +278,7 @@ export function knockoutWinner(m) {
 
 export const knockout = {
   R32: [
-    { id: "r32-1",  home: "South Africa", away: "Canada", score1: null, score2: null, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
+    { id: "r32-1",  home: "South Africa", away: "Canada", score1: 0, score2: 1, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
     { id: "r32-2",  home: "Brazil", away: "Japan", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "18:00" },
     { id: "r32-3",  home: "Germany", away: "Paraguay", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "21:30" },
     { id: "r32-4",  home: "Netherlands", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "02:00" },
