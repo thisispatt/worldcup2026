@@ -208,8 +208,8 @@ export const fixtures = [
   { id: 38, group: "G", date: "16 Jun", time: "02:00", home: "Iran",        away: "New Zealand", score1: 2, score2: 2 },
   { id: 39, group: "G", date: "21 Jun", time: "20:00", home: "Belgium",     away: "Iran",        score1: 0, score2: 0 },
   { id: 40, group: "G", date: "22 Jun", time: "02:00", home: "New Zealand", away: "Egypt",       score1: 1, score2: 3 },
-  { id: 41, group: "G", date: "27 Jun", time: "04:00", home: "Egypt",       away: "Iran",        score1: null, score2: null },
-  { id: 42, group: "G", date: "27 Jun", time: "04:00", home: "New Zealand", away: "Belgium",     score1: null, score2: null },
+  { id: 41, group: "G", date: "27 Jun", time: "04:00", home: "Egypt",       away: "Iran",        score1: 1, score2: 1 },
+  { id: 42, group: "G", date: "27 Jun", time: "04:00", home: "New Zealand", away: "Belgium",     score1: 1, score2: 5 },
 
   // ── GROUP H ──────────────────────────────────────────────
   { id: 43, group: "H", date: "15 Jun", time: "17:00", home: "Spain",        away: "Cape Verde",   score1: 0, score2: 0 },
@@ -232,24 +232,24 @@ export const fixtures = [
   { id: 56, group: "J", date: "17 Jun", time: "05:00", home: "Austria",   away: "Jordan",   score1: 3, score2: 1 },
   { id: 57, group: "J", date: "22 Jun", time: "18:00", home: "Argentina", away: "Austria",  score1: 2, score2: 0 },
   { id: 58, group: "J", date: "23 Jun", time: "04:00", home: "Jordan",    away: "Algeria",  score1: 1, score2: 2 },
-  { id: 59, group: "J", date: "28 Jun", time: "03:00", home: "Algeria",   away: "Austria",  score1: null, score2: null },
-  { id: 60, group: "J", date: "28 Jun", time: "03:00", home: "Jordan",    away: "Argentina",score1: null, score2: null },
+  { id: 59, group: "J", date: "28 Jun", time: "03:00", home: "Algeria",   away: "Austria",  score1: 3, score2: 3 },
+  { id: 60, group: "J", date: "28 Jun", time: "03:00", home: "Jordan",    away: "Argentina",score1: 1, score2: 3 },
 
   // ── GROUP K ──────────────────────────────────────────────
   { id: 61, group: "K", date: "17 Jun", time: "18:00", home: "Portugal",   away: "DR Congo",   score1: 1, score2: 1 },
   { id: 62, group: "K", date: "18 Jun", time: "03:00", home: "Uzbekistan", away: "Colombia",   score1: 1, score2: 3 },
   { id: 63, group: "K", date: "23 Jun", time: "18:00", home: "Portugal",   away: "Uzbekistan", score1: 5, score2: 0 },
   { id: 64, group: "K", date: "24 Jun", time: "03:00", home: "Colombia",   away: "DR Congo",   score1: 1, score2: 0 },
-  { id: 65, group: "K", date: "28 Jun", time: "00:30", home: "Colombia",   away: "Portugal",   score1: null, score2: null },
-  { id: 66, group: "K", date: "28 Jun", time: "00:30", home: "DR Congo",   away: "Uzbekistan", score1: null, score2: null },
+  { id: 65, group: "K", date: "28 Jun", time: "00:30", home: "Colombia",   away: "Portugal",   score1: 0, score2: 0 },
+  { id: 66, group: "K", date: "28 Jun", time: "00:30", home: "DR Congo",   away: "Uzbekistan", score1: 3, score2: 1 },
 
   // ── GROUP L ──────────────────────────────────────────────
   { id: 67, group: "L", date: "17 Jun", time: "21:00", home: "England",  away: "Croatia", score1: 4, score2: 2 },
   { id: 68, group: "L", date: "18 Jun", time: "00:00", home: "Ghana",    away: "Panama",  score1: 1, score2: 0 },
   { id: 69, group: "L", date: "23 Jun", time: "21:00", home: "England",  away: "Ghana",   score1: 0, score2: 0 },
   { id: 70, group: "L", date: "24 Jun", time: "00:00", home: "Panama",   away: "Croatia", score1: 0, score2: 1 },
-  { id: 71, group: "L", date: "27 Jun", time: "22:00", home: "Panama",   away: "England", score1: null, score2: null },
-  { id: 72, group: "L", date: "27 Jun", time: "22:00", home: "Croatia",  away: "Ghana",   score1: null, score2: null },
+  { id: 71, group: "L", date: "27 Jun", time: "22:00", home: "Panama",   away: "England", score1: 0, score2: 2 },
+  { id: 72, group: "L", date: "27 Jun", time: "22:00", home: "Croatia",  away: "Ghana",   score1: 2, score2: 1 },
 ];
 
 // ----------------------------------------------------------------
@@ -284,16 +284,16 @@ export const knockout = {
     { id: "r32-4",  home: "Netherlands", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "02:00" },
     { id: "r32-5",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
     { id: "r32-6",  home: "France", away: "Sweden", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "22:00" },
-    { id: "r32-7",  home: "Mexico", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
-    { id: "r32-8",  home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
-    { id: "r32-9",  home: "Belgium", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
+    { id: "r32-7",  home: "Mexico", away: "Ecuador", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
+    { id: "r32-8",  home: "England", away: "DR Congo", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
+    { id: "r32-9",  home: "Belgium", away: "Senegal", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
     { id: "r32-10", home: "United States", away: "Bosnia-Herzegovina", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "01:00" },
-    { id: "r32-11", home: "Spain", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
-    { id: "r32-12", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
-    { id: "r32-13", home: "Switzerland", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "04:00" },
+    { id: "r32-11", home: "Spain", away: "Austria", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
+    { id: "r32-12", home: "Portugal", away: "Croatia", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
+    { id: "r32-13", home: "Switzerland", away: "Algeria", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "04:00" },
     { id: "r32-14", home: "Australia", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "19:00" },
     { id: "r32-15", home: "Argentina", away: "Cape Verde", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "23:00" },
-    { id: "r32-16", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "02:30" },
+    { id: "r32-16", home: "Colombia", away: "Ghana", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "02:30" },
   ],
   R16: [
     { id: "r16-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
