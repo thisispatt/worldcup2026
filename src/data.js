@@ -278,22 +278,25 @@ export function knockoutWinner(m) {
 
 export const knockout = {
   R32: [
-    { id: "r32-1",  home: "South Africa", away: "Canada", score1: 0, score2: 1, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
-    { id: "r32-2",  home: "Brazil", away: "Japan", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "18:00" },
-    { id: "r32-3",  home: "Germany", away: "Paraguay", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "21:30" },
-    { id: "r32-4",  home: "Netherlands", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "02:00" },
-    { id: "r32-5",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
-    { id: "r32-6",  home: "France", away: "Sweden", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "22:00" },
-    { id: "r32-7",  home: "Mexico", away: "Ecuador", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
-    { id: "r32-8",  home: "England", away: "DR Congo", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
-    { id: "r32-9",  home: "Belgium", away: "Senegal", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
-    { id: "r32-10", home: "United States", away: "Bosnia-Herzegovina", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "01:00" },
-    { id: "r32-11", home: "Spain", away: "Austria", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
-    { id: "r32-12", home: "Portugal", away: "Croatia", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
-    { id: "r32-13", home: "Switzerland", away: "Algeria", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "04:00" },
-    { id: "r32-14", home: "Australia", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "19:00" },
-    { id: "r32-15", home: "Argentina", away: "Cape Verde", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "23:00" },
-    { id: "r32-16", home: "Colombia", away: "Ghana", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "02:30" },
+    // Ordered by bracket position (top → bottom), not kickoff time, so the
+    // connectors feed the correct Round-of-16 ties. Top half = FIFA R16 matches
+    // 91/92/95/96; bottom half = 89/90/93/94. Each pair (1&2, 3&4, …) meets in R16.
+    { id: "r32-1",  home: "Brazil", away: "Japan", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "18:00" },
+    { id: "r32-2",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
+    { id: "r32-3",  home: "Mexico", away: "Ecuador", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
+    { id: "r32-4",  home: "England", away: "DR Congo", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
+    { id: "r32-5",  home: "Argentina", away: "Cape Verde", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "23:00" },
+    { id: "r32-6",  home: "Australia", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "19:00" },
+    { id: "r32-7",  home: "Switzerland", away: "Algeria", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "04:00" },
+    { id: "r32-8",  home: "Colombia", away: "Ghana", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "02:30" },
+    { id: "r32-9",  home: "Germany", away: "Paraguay", score1: null, score2: null, pens1: null, pens2: null, date: "29 Jun", time: "21:30" },
+    { id: "r32-10", home: "France", away: "Sweden", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "22:00" },
+    { id: "r32-11", home: "South Africa", away: "Canada", score1: 0, score2: 1, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
+    { id: "r32-12", home: "Netherlands", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "02:00" },
+    { id: "r32-13", home: "Portugal", away: "Croatia", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
+    { id: "r32-14", home: "Spain", away: "Austria", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
+    { id: "r32-15", home: "United States", away: "Bosnia-Herzegovina", score1: null, score2: null, pens1: null, pens2: null, date: "2 Jul",  time: "01:00" },
+    { id: "r32-16", home: "Belgium", away: "Senegal", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
   ],
   R16: [
     { id: "r16-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
