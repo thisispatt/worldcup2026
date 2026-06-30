@@ -282,7 +282,7 @@ export const knockout = {
     // connectors feed the correct Round-of-16 ties. Top half = FIFA R16 matches
     // 91/92/95/96; bottom half = 89/90/93/94. Each pair (1&2, 3&4, …) meets in R16.
     { id: "r32-1",  home: "Brazil", away: "Japan", score1: 2, score2: 1, pens1: null, pens2: null, date: "29 Jun", time: "18:00" },
-    { id: "r32-2",  home: "Côte d'Ivoire", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
+    { id: "r32-2",  home: "Côte d'Ivoire", away: "Norway", score1: 1, score2: 2, pens1: null, pens2: null, date: "30 Jun", time: "18:00" },
     { id: "r32-3",  home: "Mexico", away: "Ecuador", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "02:00" },
     { id: "r32-4",  home: "England", away: "DR Congo", score1: null, score2: null, pens1: null, pens2: null, date: "1 Jul",  time: "17:00" },
     { id: "r32-5",  home: "Argentina", away: "Cape Verde", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "23:00" },
