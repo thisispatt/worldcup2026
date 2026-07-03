@@ -293,7 +293,7 @@ export const knockout = {
     { id: "r32-10", home: "France", away: "Sweden", score1: 3, score2: 0, pens1: null, pens2: null, date: "30 Jun", time: "22:00" },
     { id: "r32-11", home: "South Africa", away: "Canada", score1: 0, score2: 1, pens1: null, pens2: null, date: "28 Jun", time: "20:00" },
     { id: "r32-12", home: "Netherlands", away: "Morocco", score1: 1, score2: 1, pens1: 2, pens2: 3, date: "30 Jun", time: "02:00" },
-    { id: "r32-13", home: "Portugal", away: "Croatia", score1: null, score2: null, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
+    { id: "r32-13", home: "Portugal", away: "Croatia", score1: 2, score2: 1, pens1: null, pens2: null, date: "3 Jul",  time: "00:00" },
     { id: "r32-14", home: "Spain", away: "Austria", score1: 3, score2: 0, pens1: null, pens2: null, date: "2 Jul",  time: "20:00" },
     { id: "r32-15", home: "United States", away: "Bosnia-Herzegovina", score1: 2, score2: 0, pens1: null, pens2: null, date: "2 Jul",  time: "01:00" },
     { id: "r32-16", home: "Belgium", away: "Senegal", score1: 3, score2: 2, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
