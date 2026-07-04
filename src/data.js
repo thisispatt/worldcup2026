@@ -299,22 +299,31 @@ export const knockout = {
     { id: "r32-16", home: "Belgium", away: "Senegal", score1: 3, score2: 2, pens1: null, pens2: null, date: "1 Jul",  time: "21:00" },
   ],
   R16: [
-    { id: "r16-1", home: "Canada", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
-    { id: "r16-2", home: "Paraguay", away: "France", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
-    { id: "r16-3", home: "Brazil", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "5 Jul",  time: "21:00" },
-    { id: "r16-4", home: "Mexico", away: "England", score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
-    { id: "r16-5", home: "Portugal", away: "Spain", score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "20:00" },
-    { id: "r16-6", home: "United States", away: "Belgium", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "01:00" },
-    { id: "r16-7", home: "Argentina", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
-    { id: "r16-8", home: "Switzerland", away: "Colombia", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
+    // Ordered by bracket position (top → bottom), not kickoff time — same
+    // convention as R32. Each pair (1&2, 3&4, 5&6, 7&8) meets in the QF, and
+    // each match here is fed by R32 pair (1&2), (3&4), (5&6) ... (15&16)
+    // respectively. Fixtures.jsx re-sorts by date for display, so this order
+    // only matters for the bracket connectors.
+    { id: "r16-1", home: "Brazil", away: "Norway", score1: null, score2: null, pens1: null, pens2: null, date: "5 Jul",  time: "21:00" },
+    { id: "r16-2", home: "Mexico", away: "England", score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
+    { id: "r16-3", home: "Argentina", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
+    { id: "r16-4", home: "Switzerland", away: "Colombia", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
+    { id: "r16-5", home: "Paraguay", away: "France", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
+    { id: "r16-6", home: "Canada", away: "Morocco", score1: null, score2: null, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
+    { id: "r16-7", home: "Portugal", away: "Spain", score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "20:00" },
+    { id: "r16-8", home: "United States", away: "Belgium", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "01:00" },
   ],
   QF: [
+    // Same bracket-position convention: qf-1 fed by r16-1 & r16-2, qf-2 by
+    // r16-3 & r16-4, qf-3 by r16-5 & r16-6, qf-4 by r16-7 & r16-8. When filling
+    // in teams, place them by bracket position here, not by kickoff date.
     { id: "qf-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "9 Jul",  time: "21:00" },
     { id: "qf-2", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "10 Jul", time: "20:00" },
     { id: "qf-3", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "11 Jul", time: "22:00" },
     { id: "qf-4", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "12 Jul", time: "02:00" },
   ],
   SF: [
+    // sf-1 fed by qf-1 & qf-2, sf-2 fed by qf-3 & qf-4 — bracket position, not date.
     { id: "sf-1", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "14 Jul", time: "20:00" },
     { id: "sf-2", home: null, away: null, score1: null, score2: null, pens1: null, pens2: null, date: "15 Jul", time: "20:00" },
   ],
