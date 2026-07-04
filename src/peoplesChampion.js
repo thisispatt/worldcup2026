@@ -220,12 +220,16 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
     };
   }));
 
-  // record one game for a team (from that team's perspective)
-  const addGame = (team, round, opp, ha, teamGoals, oppGoals, r) => {
-    const res = teamGoals > oppGoals ? "W" : teamGoals === oppGoals ? "D" : "L";
+  // record one game for a team (from that team's perspective).
+  // `opts.res` overrides the scoreline-derived result — needed for knockout
+  // ties decided on penalties, where the 90-min score can be level even
+  // though the tie itself was won or lost. `opts.scoreSuffix` lets us append
+  // a "(pens 4–3)" note in that case.
+  const addGame = (team, round, opp, ha, teamGoals, oppGoals, r, opts = {}) => {
+    const res = opts.res || (teamGoals > oppGoals ? "W" : teamGoals === oppGoals ? "D" : "L");
     team.games.push({
       round, opp, oppFlag: flagOf[opp], ha,
-      score: `${teamGoals}\u2013${oppGoals}`, res, r,
+      score: `${teamGoals}\u2013${oppGoals}${opts.scoreSuffix || ""}`, res, r,
     });
   };
 
@@ -262,8 +266,17 @@ export function computeChampionTable(groups, fixtures, knockout, entries) {
       const gain = knockoutStep(wTeam, r);
       winner.rating += gain;
       const tag = (KO_STEP[r] && KO_STEP[r].label) || ROUND_LABEL[r];
-      addGame(winner, tag, lTeam, "", wGoals, lGoals, gain);
-      addGame(loser,  ROUND_LABEL[r], wTeam, "", lGoals, wGoals, 0);
+      // Penalties only ever apply when the tie is level after 90 (or 120) —
+      // work out the shootout score from each side's perspective for the label.
+      let wPens = null, lPens = null;
+      if (wGoals === lGoals && m.pens1 != null && m.pens2 != null) {
+        wPens = wName === m.home ? m.pens1 : m.pens2;
+        lPens = wName === m.home ? m.pens2 : m.pens1;
+      }
+      const wSuffix = wPens != null ? ` (${wPens}\u2013${lPens} pens)` : "";
+      const lSuffix = wPens != null ? ` (${lPens}\u2013${wPens} pens)` : "";
+      addGame(winner, tag, lTeam, "", wGoals, lGoals, gain, { res: "W", scoreSuffix: wSuffix });
+      addGame(loser,  ROUND_LABEL[r], wTeam, "", lGoals, wGoals, 0, { res: "L", scoreSuffix: lSuffix });
       // furthest stage reached label
       winner.stage = ROUND_LABEL[r] === "Final" ? "Champion" : `Won ${ROUND_LABEL[r]}`;
       if (loser.stage === "Group" || loser.stage.startsWith("Won") || loser.stage === "Champion") {
