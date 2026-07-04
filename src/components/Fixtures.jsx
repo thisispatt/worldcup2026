@@ -26,8 +26,33 @@ function getTeamFlag(teamName, groups) {
   return null;
 }
 
+// A stage counts as "finished" once every match in it has a recorded score.
+// An empty/not-yet-populated round (e.g. QF before teams are known) is never
+// considered finished, so we don't skip past it.
+const STAGE_ORDER = ["Group", "R32", "R16", "QF", "SF", "Finals"];
+const isPlayed = m => m.score1 != null && m.score2 != null;
+
+function isStageComplete(key, fixtures, knockout) {
+  if (key === "Group") return fixtures.length > 0 && fixtures.every(isPlayed);
+  if (key === "Finals") {
+    const matches = [...(knockout.Final || []), ...(knockout.Third || [])];
+    return matches.length > 0 && matches.every(isPlayed);
+  }
+  const matches = knockout[key] || [];
+  return matches.length > 0 && matches.every(isPlayed);
+}
+
+// Default to the first stage that isn't fully finished yet — e.g. once every
+// R32 game has a score, the view opens on R16 instead of a "finished" round.
+function getDefaultStage(fixtures, knockout) {
+  for (const key of STAGE_ORDER) {
+    if (!isStageComplete(key, fixtures, knockout)) return key;
+  }
+  return STAGE_ORDER[STAGE_ORDER.length - 1];
+}
+
 export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
-  const [stage, setStage] = useState("Group");
+  const [stage, setStage] = useState(() => getDefaultStage(fixtures, knockout));
   const [activeGroup, setActiveGroup] = useState("all");
   const [search, setSearch] = useState("");
 
@@ -48,9 +73,12 @@ export default function Fixtures({ fixtures, groups, entries, knockout = {} }) {
       list = [
         ...(knockout.Final  || []).map(m => ({ ...m, roundLabel: "Final" })),
         ...(knockout.Third  || []).map(m => ({ ...m, roundLabel: "3rd Place Play-off" })),
-      ];
+      ].sort(fixtureSort);
     } else {
-      list = (knockout[stage] || []).map(m => ({ ...m, roundLabel: ROUND_LABEL[stage] }));
+      // Underlying knockout[stage] arrays are ordered by bracket position (so
+      // Bracket.jsx's connectors line up), not kickoff time — sort by date/time
+      // here so the Fixtures list always reads chronologically.
+      list = (knockout[stage] || []).map(m => ({ ...m, roundLabel: ROUND_LABEL[stage] })).sort(fixtureSort);
     }
 
     if (!search.trim()) return list;
