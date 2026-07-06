@@ -305,7 +305,7 @@ export const knockout = {
     // respectively. Fixtures.jsx re-sorts by date for display, so this order
     // only matters for the bracket connectors.
     { id: "r16-1", home: "Brazil", away: "Norway", score1: 1, score2: 2, pens1: null, pens2: null, date: "5 Jul",  time: "21:00" },
-    { id: "r16-2", home: "Mexico", away: "England", score1: null, score2: null, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
+    { id: "r16-2", home: "Mexico", away: "England", score1: 2, score2: 3, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
     { id: "r16-3", home: "Argentina", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
     { id: "r16-4", home: "Switzerland", away: "Colombia", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
     { id: "r16-5", home: "Paraguay", away: "France", score1: 0, score2: 1, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
