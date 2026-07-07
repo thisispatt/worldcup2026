@@ -306,8 +306,8 @@ export const knockout = {
     // only matters for the bracket connectors.
     { id: "r16-1", home: "Brazil", away: "Norway", score1: 1, score2: 2, pens1: null, pens2: null, date: "5 Jul",  time: "21:00" },
     { id: "r16-2", home: "Mexico", away: "England", score1: 2, score2: 3, pens1: null, pens2: null, date: "6 Jul",  time: "01:00" },
-    { id: "r16-3", home: "Argentina", away: "Egypt", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
-    { id: "r16-4", home: "Switzerland", away: "Colombia", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
+    { id: "r16-3", home: "Argentina", away: "Egypt", score1: 3, score2: 2, pens1: null, pens2: null, date: "7 Jul",  time: "17:00" },
+    { id: "r16-4", home: "Switzerland", away: "Colombia", score1: 0, score2: 0, pens1: 4, pens2: 3, date: "7 Jul",  time: "21:00" },
     { id: "r16-5", home: "Paraguay", away: "France", score1: 0, score2: 1, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
     { id: "r16-6", home: "Canada", away: "Morocco", score1: 0, score2: 3, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
     { id: "r16-7", home: "Portugal", away: "Spain", score1: 0, score2: 1, pens1: null, pens2: null, date: "6 Jul",  time: "20:00" },
