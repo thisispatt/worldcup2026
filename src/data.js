@@ -310,7 +310,7 @@ export const knockout = {
     { id: "r16-4", home: "Switzerland", away: "Colombia", score1: null, score2: null, pens1: null, pens2: null, date: "7 Jul",  time: "21:00" },
     { id: "r16-5", home: "Paraguay", away: "France", score1: 0, score2: 1, pens1: null, pens2: null, date: "4 Jul",  time: "22:00" },
     { id: "r16-6", home: "Canada", away: "Morocco", score1: 0, score2: 3, pens1: null, pens2: null, date: "4 Jul",  time: "18:00" },
-    { id: "r16-7", home: "Portugal", away: "Spain", score1: null, score2: 0, pens1: 1, pens2: null, date: "6 Jul",  time: "20:00" },
+    { id: "r16-7", home: "Portugal", away: "Spain", score1: 0, score2: 1, pens1: null, pens2: null, date: "6 Jul",  time: "20:00" },
     { id: "r16-8", home: "United States", away: "Belgium", score1: 1, score2: 4, pens1: null, pens2: null, date: "7 Jul",  time: "01:00" },
   ],
   QF: [
