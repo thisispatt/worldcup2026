@@ -324,7 +324,7 @@ export const knockout = {
   ],
   SF: [
     // sf-1 fed by qf-1 & qf-2, sf-2 fed by qf-3 & qf-4 — bracket position, not date.
-    { id: "sf-1", home: "England", away: null, score1: null, score2: null, pens1: null, pens2: null, date: "15 Jul", time: "20:00" },
+    { id: "sf-1", home: "England", away: "Argentina", score1: null, score2: null, pens1: null, pens2: null, date: "15 Jul", time: "20:00" },
     { id: "sf-2", home: "France", away: "Spain", score1: null, score2: null, pens1: null, pens2: null, date: "14 Jul", time: "20:00" },
   ],
   Third: [
