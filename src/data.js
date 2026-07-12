@@ -318,7 +318,7 @@ export const knockout = {
     // r16-3 & r16-4, qf-3 by r16-5 & r16-6, qf-4 by r16-7 & r16-8. When filling
     // in teams, place them by bracket position here, not by kickoff date.
     { id: "qf-1", home: "Norway", away: "England", score1: 1, score2: 2, pens1: null, pens2: null, date: "11 Jul", time: "22:00" },
-    { id: "qf-2", home: "Argentina", away: "Switzerland", score1: null, score2: null, pens1: null, pens2: null, date: "12 Jul", time: "02:00" },
+    { id: "qf-2", home: "Argentina", away: "Switzerland", score1: 3, score2: 1, pens1: null, pens2: null, date: "12 Jul", time: "02:00" },
     { id: "qf-3", home: "France", away: "Morocco", score1: 2, score2: 0, pens1: null, pens2: null, date: "9 Jul",  time: "21:00" },
     { id: "qf-4", home: "Spain", away: "Belgium", score1: 2, score2: 1, pens1: null, pens2: null, date: "10 Jul", time: "20:00" },
   ],
